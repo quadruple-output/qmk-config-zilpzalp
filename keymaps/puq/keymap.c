@@ -26,7 +26,7 @@ enum custom_keycodes {
 
 /* Layer PUQ:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
-       │  M │  L │  C │                     │  , │  " │  U │
+       │  M │  L │  C │                     │  , │ "… │  U │
        │    │    │    ├────┐           ┌────┤    │    │    │
        ├─ F ┼────┼─ P ┤  G │           │  Q ├─ F ┼────┼─ P ┤
        │  N │  R │  T │cg  │           │cg  │  A │  E │  I │
@@ -59,34 +59,34 @@ enum custom_keycodes {
        f: Layer FUNC
 */
 
-#define PUQ_LP
-#define PUQ_L1
-#define PUQ_L2
-#define PUQ_L3
-#define PUQ_L4
-#define PUQ_L5
-#define PUQ_L6
-#define PUQ_L7
-#define PUQ_L8
-#define PUQ_L9
-#define PUQ_LA
-#define PUQ_LB
-#define PUQ_LS
-#define PUQ_LE
-#define PUQ_RP
-#define PUQ_R1
-#define PUQ_R2
-#define PUQ_R3
-#define PUQ_R4
-#define PUQ_R5
-#define PUQ_R6
-#define PUQ_R7
-#define PUQ_R8
-#define PUQ_R9
-#define PUQ_RA
-#define PUQ_RB
-#define PUQ_RS
-#define PUQ_RE
+#define PUQ_LP LT(NEO3, KC_S)
+#define PUQ_L1 KC_NO
+#define PUQ_L2 KC_NO
+#define PUQ_L3 KC_NO
+#define PUQ_L4 KC_NO
+#define PUQ_L5 KC_NO
+#define PUQ_L6 KC_NO
+#define PUQ_L7 KC_NO
+#define PUQ_L8 KC_NO
+#define PUQ_L9 KC_NO
+#define PUQ_LA KC_NO
+#define PUQ_LB KC_NO
+#define PUQ_LS KC_NO
+#define PUQ_LE KC_NO
+#define PUQ_RP LT(NEO3, KC_H)
+#define PUQ_R1 KC_NO
+#define PUQ_R2 KC_NO
+#define PUQ_R3 KC_NO
+#define PUQ_R4 KC_NO
+#define PUQ_R5 KC_NO
+#define PUQ_R6 KC_NO
+#define PUQ_R7 KC_NO
+#define PUQ_R8 KC_NO
+#define PUQ_R9 KC_NO
+#define PUQ_RA KC_NO
+#define PUQ_RB KC_NO
+#define PUQ_RS KC_NO
+#define PUQ_RE KC_NO
 
 /* Layer NEO3:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -100,34 +100,34 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define NEO3_LP
-#define NEO3_L1
-#define NEO3_L2
-#define NEO3_L3
-#define NEO3_L4
-#define NEO3_L5
-#define NEO3_L6
-#define NEO3_L7
-#define NEO3_L8
-#define NEO3_L9
-#define NEO3_LA
-#define NEO3_LB
-#define NEO3_LS
-#define NEO3_LE
-#define NEO3_RP
-#define NEO3_R1
-#define NEO3_R2
-#define NEO3_R3
-#define NEO3_R4
-#define NEO3_R5
-#define NEO3_R6
-#define NEO3_R7
-#define NEO3_R8
-#define NEO3_R9
-#define NEO3_RA
-#define NEO3_RB
-#define NEO3_RS
-#define NEO3_RE
+#define NEO3_LP KC_NO
+#define NEO3_L1 KC_NO
+#define NEO3_L2 KC_NO
+#define NEO3_L3 KC_NO
+#define NEO3_L4 KC_NO
+#define NEO3_L5 KC_NO
+#define NEO3_L6 KC_NO
+#define NEO3_L7 KC_NO
+#define NEO3_L8 KC_NO
+#define NEO3_L9 KC_NO
+#define NEO3_LA KC_NO
+#define NEO3_LB KC_NO
+#define NEO3_LS KC_NO
+#define NEO3_LE KC_NO
+#define NEO3_RP KC_NO
+#define NEO3_R1 KC_NO
+#define NEO3_R2 KC_NO
+#define NEO3_R3 KC_NO
+#define NEO3_R4 KC_NO
+#define NEO3_R5 KC_NO
+#define NEO3_R6 KC_NO
+#define NEO3_R7 KC_NO
+#define NEO3_R8 KC_NO
+#define NEO3_R9 KC_NO
+#define NEO3_RA KC_NO
+#define NEO3_RB KC_NO
+#define NEO3_RS KC_NO
+#define NEO3_RE KC_NO
 
 /* Layer NEO4:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -141,34 +141,34 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define NEO4_LP
-#define NEO4_L1
-#define NEO4_L2
-#define NEO4_L3
-#define NEO4_L4
-#define NEO4_L5
-#define NEO4_L6
-#define NEO4_L7
-#define NEO4_L8
-#define NEO4_L9
-#define NEO4_LA
-#define NEO4_LB
-#define NEO4_LS
-#define NEO4_LE
-#define NEO4_RP
-#define NEO4_R1
-#define NEO4_R2
-#define NEO4_R3
-#define NEO4_R4
-#define NEO4_R5
-#define NEO4_R6
-#define NEO4_R7
-#define NEO4_R8
-#define NEO4_R9
-#define NEO4_RA
-#define NEO4_RB
-#define NEO4_RS
-#define NEO4_RE
+#define NEO4_LP KC_NO
+#define NEO4_L1 KC_NO
+#define NEO4_L2 KC_NO
+#define NEO4_L3 KC_NO
+#define NEO4_L4 KC_NO
+#define NEO4_L5 KC_NO
+#define NEO4_L6 KC_NO
+#define NEO4_L7 KC_NO
+#define NEO4_L8 KC_NO
+#define NEO4_L9 KC_NO
+#define NEO4_LA KC_NO
+#define NEO4_LB KC_NO
+#define NEO4_LS KC_NO
+#define NEO4_LE KC_NO
+#define NEO4_RP KC_NO
+#define NEO4_R1 KC_NO
+#define NEO4_R2 KC_NO
+#define NEO4_R3 KC_NO
+#define NEO4_R4 KC_NO
+#define NEO4_R5 KC_NO
+#define NEO4_R6 KC_NO
+#define NEO4_R7 KC_NO
+#define NEO4_R8 KC_NO
+#define NEO4_R9 KC_NO
+#define NEO4_RA KC_NO
+#define NEO4_RB KC_NO
+#define NEO4_RS KC_NO
+#define NEO4_RE KC_NO
 
 /* Layer FUNC:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -182,34 +182,34 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define FUNC_LP
-#define FUNC_L1
-#define FUNC_L2
-#define FUNC_L3
-#define FUNC_L4
-#define FUNC_L5
-#define FUNC_L6
-#define FUNC_L7
-#define FUNC_L8
-#define FUNC_L9
-#define FUNC_LA
-#define FUNC_LB
-#define FUNC_LS
-#define FUNC_LE
-#define FUNC_RP
-#define FUNC_R1
-#define FUNC_R2
-#define FUNC_R3
-#define FUNC_R4
-#define FUNC_R5
-#define FUNC_R6
-#define FUNC_R7
-#define FUNC_R8
-#define FUNC_R9
-#define FUNC_RA
-#define FUNC_RB
-#define FUNC_RS
-#define FUNC_RE
+#define FUNC_LP KC_NO
+#define FUNC_L1 KC_NO
+#define FUNC_L2 KC_NO
+#define FUNC_L3 KC_NO
+#define FUNC_L4 KC_NO
+#define FUNC_L5 KC_NO
+#define FUNC_L6 KC_NO
+#define FUNC_L7 KC_NO
+#define FUNC_L8 KC_NO
+#define FUNC_L9 KC_NO
+#define FUNC_LA KC_NO
+#define FUNC_LB KC_NO
+#define FUNC_LS KC_NO
+#define FUNC_LE KC_NO
+#define FUNC_RP KC_NO
+#define FUNC_R1 KC_NO
+#define FUNC_R2 KC_NO
+#define FUNC_R3 KC_NO
+#define FUNC_R4 KC_NO
+#define FUNC_R5 KC_NO
+#define FUNC_R6 KC_NO
+#define FUNC_R7 KC_NO
+#define FUNC_R8 KC_NO
+#define FUNC_R9 KC_NO
+#define FUNC_RA KC_NO
+#define FUNC_RB KC_NO
+#define FUNC_RS KC_NO
+#define FUNC_RE KC_NO
 
 // LEFT HAND HOME ROW MODS
 #define CTL_A MT(MOD_LCTL, KC_A)
@@ -267,30 +267,30 @@ combo_t key_combos[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [PUQ] = LAYOUT(
-              PUQ_00, PUQ_01, PUQ_02, PUQ_03,         PUQ_04, PUQ_05, PUQ_06, PUQ_07,
-      PUQ_08, PUQ_09, PUQ_10, PUQ_11, PUQ_12,         PUQ_13, PUQ_14, PUQ_15, PUQ_16, PUQ_17,
-              PUQ_18, PUQ_19, PUQ_20,                         PUQ_21, PUQ_22, PUQ_23,
-                                  PUQ_24, PUQ_25,  PUQ_26, PUQ_27
+              PUQ_L7, PUQ_L8, PUQ_L9, PUQ_LA,         PUQ_RA, PUQ_R7, PUQ_R8, PUQ_R9,
+      PUQ_LP, PUQ_L4, PUQ_L5, PUQ_L6, PUQ_LB,         PUQ_RB, PUQ_R4, PUQ_R5, PUQ_R6, PUQ_RP,
+              PUQ_L1, PUQ_L2, PUQ_L3,                         PUQ_R1, PUQ_R2, PUQ_R3,
+                                  PUQ_LS, PUQ_LE,  PUQ_RE, PUQ_RS
     ),
 
     [NEO3] = LAYOUT(
-               NEO3_00, NEO3_01, NEO3_02, NEO3_03,         NEO3_04, NEO3_05, NEO3_06, NEO3_07,
-      NEO3_08, NEO3_09, NEO3_10, NEO3_11, NEO3_12,         NEO3_13, NEO3_14, NEO3_15, NEO3_16, NEO3_17,
-               NEO3_18, NEO3_19, NEO3_20,                           NEO3_21, NEO3_22, NEO3_23,
-                                     NEO3_24, NEO3_25,  NEO3_26, NEO3_27
+               NEO3_L7, NEO3_L8, NEO3_L9, NEO3_LA,         NEO3_RA, NEO3_R7, NEO3_R8, NEO3_R9,
+      NEO3_LP, NEO3_L4, NEO3_L5, NEO3_L6, NEO3_LB,         NEO3_RB, NEO3_R4, NEO3_R5, NEO3_R6, NEO3_RP,
+               NEO3_L1, NEO3_L2, NEO3_L3,                           NEO3_R1, NEO3_R2, NEO3_R3,
+                                     NEO3_LS, NEO3_LE,  NEO3_RE, NEO3_RS
     ),
 
     [NEO4] = LAYOUT(
-               NEO4_00, NEO4_01, NEO4_02, NEO4_03,         NEO4_04, NEO4_05, NEO4_06, NEO4_07,
-      NEO4_08, NEO4_09, NEO4_10, NEO4_11, NEO4_12,         NEO4_13, NEO4_14, NEO4_15, NEO4_16, NEO4_17,
-               NEO4_18, NEO4_19, NEO4_20,                           NEO4_21, NEO4_22, NEO4_23,
-                                     NEO4_24, NEO4_25,  NEO4_26, NEO4_27
+               NEO4_L7, NEO4_L8, NEO4_L9, NEO4_LA,         NEO4_RA, NEO4_R7, NEO4_R8, NEO4_R9,
+      NEO4_LP, NEO4_L4, NEO4_L5, NEO4_L6, NEO4_LB,         NEO4_RB, NEO4_R4, NEO4_R5, NEO4_R6, NEO4_RP,
+               NEO4_L1, NEO4_L2, NEO4_L3,                           NEO4_R1, NEO4_R2, NEO4_R3,
+                                     NEO4_LS, NEO4_LE,  NEO4_RE, NEO4_RS
     ),
 
     [FUNC] = LAYOUT(
-               FUNC_00, FUNC_01, FUNC_02, FUNC_03,         FUNC_04, FUNC_05, FUNC_06, FUNC_07,
-      FUNC_08, FUNC_09, FUNC_10, FUNC_11, FUNC_12,         FUNC_13, FUNC_14, FUNC_15, FUNC_16, FUNC_17,
-               FUNC_18, FUNC_19, FUNC_20,                           FUNC_21, FUNC_22, FUNC_23,
-                                     FUNC_24, FUNC_25,  FUNC_26, FUNC_27
+               FUNC_L7, FUNC_L8, FUNC_L9, FUNC_LA,         FUNC_RA, FUNC_R7, FUNC_R8, FUNC_R9,
+      FUNC_LP, FUNC_L4, FUNC_L5, FUNC_L6, FUNC_LB,         FUNC_RB, FUNC_R4, FUNC_R5, FUNC_R6, FUNC_RP,
+               FUNC_L1, FUNC_L2, FUNC_L3,                           FUNC_R1, FUNC_R2, FUNC_R3,
+                                     FUNC_LS, FUNC_LE,  FUNC_RE, FUNC_RS
     )
 };
