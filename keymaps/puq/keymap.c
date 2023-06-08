@@ -8,9 +8,24 @@ enum zilpzalp_layers {
     FUNC
 };
 
+#define PUQ_MASK  (1 << PUQ)
+#define NEO3_MASK (1 << NEO3)
+#define NEO4_MASK (1 << NEO4)
+#define FUNC_MASK (1 << FUNC)
+
 enum custom_keycodes {
     UNUSED = SAFE_RANGE
 };
+
+#define DE_UUML KC_LEFT_BRACKET
+#define DE_MINUS KC_SLASH
+#define DE_Y KC_Z
+#define DE_Z KC_Y
+#define DE_HASH KC_BACKSLASH
+#define DE_UNDERSCORE S(DE_MINUS)
+#define DE_SINGLE_QUOTE S(DE_HASH)
+#define DE_BULLET A(DE_UUML)
+#define DE_DASH A(DE_MINUS)
 
 /* #defines:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -26,26 +41,17 @@ enum custom_keycodes {
 
 /* Layer PUQ:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
-       │  M │  L │  C │                     │  , │ "… │  U │
+       │  M │  L │  C │                     │  ,*│ "… │  U │
        │    │    │    ├────┐           ┌────┤    │    │    │
        ├─ F ┼────┼─ P ┤  G │           │  Q ├─ F ┼────┼─ P ┤
        │  N │  R │  T │cg  │           │cg  │  A │  E │  I │
   ┌────┤4   │g   │a   ├────┤           ├────┤a   │g   │4   ├────┐
   │  S ├─ Z ┼────┼─ J ┤  D │           │  O ├─ X ┼────┼─ K ┤  H │
-  │3   │  B │  W │  V │cag │           │cag │  _ │  . │  Y │3   │
+  │3   │  B │  W │  V │cag │           │cag │  _ │  .*│  Y │3   │
   └────┤    │c   │    ├────┘           └────┤    │c   │    ├────┘
        └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴────┴────┘
                     │  SPC│  ESC│ │  ENT│  SPC│
                     │s    │f    │ │f    │s    │
-                    └─────┴─────┘ └─────┴─────┘
-       ┌────┬────┬────┐                     ┌────┬────┬────┐
-       │  M │  L │  C ├─────┐         ┌─────┤  , │  " │  U │
-       ├─ F ┼────┼─ P ┤cg G │         │cg Q ├─ F ┼────┼─ P ┤
-  ┌────┤4 N │g R │a T ├─────┤         ├─────┤a A │g E │4 I ├────┐
-  │3 S ├─ Z ┼────┼─ J ┤cag D│         │cag O├─ X ┼────┼─ K ┤3 H │
-  └────┤  B │c W │  V ├─────┘         └─────┤  _ │c . │  Y ├────┘
-       └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴────┴────┘
-                    │s SPC│f ESC│ │f ENT│s SPC│
                     └─────┴─────┘ └─────┴─────┘
    Legend:
    - Capital letters ordinary characters
@@ -57,36 +63,48 @@ enum custom_keycodes {
        3: Layer NEO3
        4: Layer NEO4
        f: Layer FUNC
+   - `*` indicates that a key_override exists
+   - `"…` indicates the compose key. Used to type German umlautes and other stuff.
+
+       ┌────┬────┬────┐                     ┌────┬────┬────┐
+       │  M │  L │  C ├─────┐         ┌─────┤  ,*│ "… │  U │
+       ├─ F ┼────┼─ P ┤cg G │         │cg Q ├─ F ┼────┼─ P ┤
+  ┌────┤4 N │g R │a T ├─────┤         ├─────┤a A │g E │4 I ├────┐
+  │3 S ├─ Z ┼────┼─ J ┤cag D│         │cag O├─ X ┼────┼─ K ┤3 H │
+  └────┤  B │c W │  V ├─────┘         └─────┤  _ │c .*│  Y ├────┘
+       └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴────┴────┘
+                    │s SPC│f ESC│ │f ENT│s SPC│
+                    └─────┴─────┘ └─────┴─────┘
 */
 
 #define PUQ_LP LT(NEO3, KC_S)
-#define PUQ_L1 KC_NO
-#define PUQ_L2 KC_NO
-#define PUQ_L3 KC_NO
-#define PUQ_L4 KC_NO
-#define PUQ_L5 KC_NO
-#define PUQ_L6 KC_NO
-#define PUQ_L7 KC_NO
-#define PUQ_L8 KC_NO
-#define PUQ_L9 KC_NO
-#define PUQ_LA KC_NO
-#define PUQ_LB KC_NO
-#define PUQ_LS KC_NO
-#define PUQ_LE KC_NO
+#define PUQ_L1 KC_B
+#define PUQ_L2 MT(MOD_LCTL, KC_W)
+#define PUQ_L3 KC_V
+#define PUQ_L4 LT(NEO4, KC_N)
+#define PUQ_L5 MT(MOD_LGUI, KC_R)
+#define PUQ_L6 MT(MOD_LALT, KC_T)
+#define PUQ_L7 KC_M
+#define PUQ_L8 KC_L
+#define PUQ_L9 KC_C
+#define PUQ_LA MT(MOD_LCTL|MOD_LGUI, KC_G)
+#define PUQ_LB MT(MOD_LCTL|MOD_LALT|MOD_LGUI, KC_D)
+#define PUQ_LS MT(MOD_LSFT, KC_SPACE)
+#define PUQ_LE LT(FUNC, KC_ESCAPE)
 #define PUQ_RP LT(NEO3, KC_H)
-#define PUQ_R1 KC_NO
-#define PUQ_R2 KC_NO
-#define PUQ_R3 KC_NO
-#define PUQ_R4 KC_NO
-#define PUQ_R5 KC_NO
-#define PUQ_R6 KC_NO
-#define PUQ_R7 KC_NO
-#define PUQ_R8 KC_NO
-#define PUQ_R9 KC_NO
-#define PUQ_RA KC_NO
-#define PUQ_RB KC_NO
-#define PUQ_RS KC_NO
-#define PUQ_RE KC_NO
+#define PUQ_R1 DE_UNDERSCORE
+#define PUQ_R2 MT(MOD_LCTL, KC_DOT)
+#define PUQ_R3 DE_Y
+#define PUQ_R4 MT(MOD_LALT, KC_A)
+#define PUQ_R5 MT(MOD_LGUI, KC_E)
+#define PUQ_R6 LT(NEO4, KC_I)
+#define PUQ_R7 KC_COMMA
+#define PUQ_R8 C(KC_F13) // quick-compose key. add SHIFT for full compose key
+#define PUQ_R9 KC_U
+#define PUQ_RA MT(MOD_LCTL|MOD_LGUI, KC_Q)
+#define PUQ_RB MT(MOD_LCTL|MOD_LALT|MOD_LGUI, KC_O)
+#define PUQ_RS MT(MOD_LSFT, KC_SPACE)
+#define PUQ_RE LT(FUNC, KC_ENTER)
 
 /* Layer NEO3:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -100,34 +118,34 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define NEO3_LP KC_NO
-#define NEO3_L1 KC_NO
-#define NEO3_L2 KC_NO
-#define NEO3_L3 KC_NO
-#define NEO3_L4 KC_NO
-#define NEO3_L5 KC_NO
-#define NEO3_L6 KC_NO
-#define NEO3_L7 KC_NO
-#define NEO3_L8 KC_NO
-#define NEO3_L9 KC_NO
-#define NEO3_LA KC_NO
-#define NEO3_LB KC_NO
-#define NEO3_LS KC_NO
-#define NEO3_LE KC_NO
-#define NEO3_RP KC_NO
-#define NEO3_R1 KC_NO
-#define NEO3_R2 KC_NO
-#define NEO3_R3 KC_NO
-#define NEO3_R4 KC_NO
-#define NEO3_R5 KC_NO
-#define NEO3_R6 KC_NO
-#define NEO3_R7 KC_NO
-#define NEO3_R8 KC_NO
-#define NEO3_R9 KC_NO
-#define NEO3_RA KC_NO
-#define NEO3_RB KC_NO
-#define NEO3_RS KC_NO
-#define NEO3_RE KC_NO
+#define NEO3_LP XXXXXXX
+#define NEO3_L1 XXXXXXX
+#define NEO3_L2 XXXXXXX
+#define NEO3_L3 XXXXXXX
+#define NEO3_L4 XXXXXXX
+#define NEO3_L5 XXXXXXX
+#define NEO3_L6 XXXXXXX
+#define NEO3_L7 XXXXXXX
+#define NEO3_L8 XXXXXXX
+#define NEO3_L9 XXXXXXX
+#define NEO3_LA XXXXXXX
+#define NEO3_LB XXXXXXX
+#define NEO3_LS XXXXXXX
+#define NEO3_LE XXXXXXX
+#define NEO3_RP XXXXXXX
+#define NEO3_R1 XXXXXXX
+#define NEO3_R2 XXXXXXX
+#define NEO3_R3 XXXXXXX
+#define NEO3_R4 XXXXXXX
+#define NEO3_R5 XXXXXXX
+#define NEO3_R6 XXXXXXX
+#define NEO3_R7 XXXXXXX
+#define NEO3_R8 XXXXXXX
+#define NEO3_R9 XXXXXXX
+#define NEO3_RA XXXXXXX
+#define NEO3_RB XXXXXXX
+#define NEO3_RS XXXXXXX
+#define NEO3_RE XXXXXXX
 
 /* Layer NEO4:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -141,34 +159,34 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define NEO4_LP KC_NO
-#define NEO4_L1 KC_NO
-#define NEO4_L2 KC_NO
-#define NEO4_L3 KC_NO
-#define NEO4_L4 KC_NO
-#define NEO4_L5 KC_NO
-#define NEO4_L6 KC_NO
-#define NEO4_L7 KC_NO
-#define NEO4_L8 KC_NO
-#define NEO4_L9 KC_NO
-#define NEO4_LA KC_NO
-#define NEO4_LB KC_NO
-#define NEO4_LS KC_NO
-#define NEO4_LE KC_NO
-#define NEO4_RP KC_NO
-#define NEO4_R1 KC_NO
-#define NEO4_R2 KC_NO
-#define NEO4_R3 KC_NO
-#define NEO4_R4 KC_NO
-#define NEO4_R5 KC_NO
-#define NEO4_R6 KC_NO
-#define NEO4_R7 KC_NO
-#define NEO4_R8 KC_NO
-#define NEO4_R9 KC_NO
-#define NEO4_RA KC_NO
-#define NEO4_RB KC_NO
-#define NEO4_RS KC_NO
-#define NEO4_RE KC_NO
+#define NEO4_LP XXXXXXX
+#define NEO4_L1 XXXXXXX
+#define NEO4_L2 XXXXXXX
+#define NEO4_L3 XXXXXXX
+#define NEO4_L4 XXXXXXX
+#define NEO4_L5 XXXXXXX
+#define NEO4_L6 XXXXXXX
+#define NEO4_L7 XXXXXXX
+#define NEO4_L8 XXXXXXX
+#define NEO4_L9 XXXXXXX
+#define NEO4_LA XXXXXXX
+#define NEO4_LB XXXXXXX
+#define NEO4_LS XXXXXXX
+#define NEO4_LE XXXXXXX
+#define NEO4_RP XXXXXXX
+#define NEO4_R1 XXXXXXX
+#define NEO4_R2 XXXXXXX
+#define NEO4_R3 XXXXXXX
+#define NEO4_R4 XXXXXXX
+#define NEO4_R5 XXXXXXX
+#define NEO4_R6 XXXXXXX
+#define NEO4_R7 XXXXXXX
+#define NEO4_R8 XXXXXXX
+#define NEO4_R9 XXXXXXX
+#define NEO4_RA XXXXXXX
+#define NEO4_RB XXXXXXX
+#define NEO4_RS XXXXXXX
+#define NEO4_RE XXXXXXX
 
 /* Layer FUNC:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -182,34 +200,56 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define FUNC_LP KC_NO
-#define FUNC_L1 KC_NO
-#define FUNC_L2 KC_NO
-#define FUNC_L3 KC_NO
-#define FUNC_L4 KC_NO
-#define FUNC_L5 KC_NO
-#define FUNC_L6 KC_NO
-#define FUNC_L7 KC_NO
-#define FUNC_L8 KC_NO
-#define FUNC_L9 KC_NO
-#define FUNC_LA KC_NO
-#define FUNC_LB KC_NO
-#define FUNC_LS KC_NO
-#define FUNC_LE KC_NO
-#define FUNC_RP KC_NO
-#define FUNC_R1 KC_NO
-#define FUNC_R2 KC_NO
-#define FUNC_R3 KC_NO
-#define FUNC_R4 KC_NO
-#define FUNC_R5 KC_NO
-#define FUNC_R6 KC_NO
-#define FUNC_R7 KC_NO
-#define FUNC_R8 KC_NO
-#define FUNC_R9 KC_NO
-#define FUNC_RA KC_NO
-#define FUNC_RB KC_NO
-#define FUNC_RS KC_NO
-#define FUNC_RE KC_NO
+#define FUNC_LP XXXXXXX
+#define FUNC_L1 XXXXXXX
+#define FUNC_L2 XXXXXXX
+#define FUNC_L3 XXXXXXX
+#define FUNC_L4 XXXXXXX
+#define FUNC_L5 XXXXXXX
+#define FUNC_L6 XXXXXXX
+#define FUNC_L7 XXXXXXX
+#define FUNC_L8 XXXXXXX
+#define FUNC_L9 XXXXXXX
+#define FUNC_LA XXXXXXX
+#define FUNC_LB XXXXXXX
+#define FUNC_LS XXXXXXX
+#define FUNC_LE XXXXXXX
+#define FUNC_RP XXXXXXX
+#define FUNC_R1 XXXXXXX
+#define FUNC_R2 XXXXXXX
+#define FUNC_R3 XXXXXXX
+#define FUNC_R4 XXXXXXX
+#define FUNC_R5 XXXXXXX
+#define FUNC_R6 XXXXXXX
+#define FUNC_R7 XXXXXXX
+#define FUNC_R8 XXXXXXX
+#define FUNC_R9 XXXXXXX
+#define FUNC_RA XXXXXXX
+#define FUNC_RB XXXXXXX
+#define FUNC_RS XXXXXXX
+#define FUNC_RE XXXXXXX
+
+// Key Overrides:
+const key_override_t shift_comma_is_dash = ko_make_with_layers_and_negmods(
+        MOD_MASK_SHIFT,
+        PUQ_R7,
+        DE_DASH,
+        PUQ_MASK, // only on PUQ layer
+        MOD_MASK_CAG // not when combined with any other modifier
+      );
+const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
+        MOD_MASK_SHIFT,
+        PUQ_R2,
+        DE_BULLET,
+        PUQ_MASK, // only on PUQ layer
+        MOD_MASK_CAG // not when combined with any other modifier
+      );
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &shift_comma_is_dash,
+    &shift_dot_is_bullet,
+    NULL // terminator
+};
 
 // LEFT HAND HOME ROW MODS
 #define CTL_A MT(MOD_LCTL, KC_A)
