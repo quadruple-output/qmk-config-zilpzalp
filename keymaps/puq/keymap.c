@@ -17,17 +17,19 @@ enum custom_keycodes {
     UNUSED = SAFE_RANGE
 };
 
-#define DE_UUML KC_LEFT_BRACKET
-#define DE_MINUS KC_SLASH
-#define DE_Y KC_Z
-#define DE_Z KC_Y
-#define DE_HASH KC_BACKSLASH
-#define DE_UNDERSCORE S(DE_MINUS)
+// This layout assumes that the OS layout is set to "German (no dead keys)"
+// We define `DE`-versions for symbols that do not match their US keyboard positions:
+#define DE_Y            KC_Z
+#define DE_Z            KC_Y
+#define DE_HASH         KC_BACKSLASH
+#define DE_MINUS        KC_SLASH
+#define DE_UUML         KC_LEFT_BRACKET
+#define DE_UNDERSCORE   S(DE_MINUS)
 #define DE_SINGLE_QUOTE S(DE_HASH)
-#define DE_BULLET A(DE_UUML)
-#define DE_DASH A(DE_MINUS)
+#define DE_BULLET       A(DE_UUML)
+#define DE_DASH         A(DE_MINUS)
 
-/* #defines:
+/* naming scheme for #defines:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
        │ L7 │ L8 │ L9 ├────┐           ┌────┤ R7 │ R8 │ R9 │
        ├────┼────┼────┤ LA │           │ RA ├────┼────┼────┤
@@ -40,31 +42,19 @@ enum custom_keycodes {
 */
 
 /* Layer PUQ:
-       ┌────┬────┬────┐                     ┌────┬────┬────┐
-       │  M │  L │  C │                     │  ,*│ "… │  U │
-       │    │    │    ├────┐           ┌────┤    │    │    │
-       ├─ F ┼────┼─ P ┤  G │           │  Q ├─ F ┼────┼─ P ┤
-       │  N │  R │  T │cg  │           │cg  │  A │  E │  I │
-  ┌────┤4   │g   │a   ├────┤           ├────┤a   │g   │4   ├────┐
-  │  S ├─ Z ┼────┼─ J ┤  D │           │  O ├─ X ┼────┼─ K ┤  H │
-  │3   │  B │  W │  V │cag │           │cag │  _ │  .*│  Y │3   │
-  └────┤    │c   │    ├────┘           └────┤    │c   │    ├────┘
-       └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴────┴────┘
-                    │  SPC│  ESC│ │  ENT│  SPC│
-                    │s    │f    │ │f    │s    │
-                    └─────┴─────┘ └─────┴─────┘
+
    Legend:
-   - Capital letters ordinary characters
+   - Capital letters indicate ordinary characters
    - Lower case letters and numbers:
-       a: Alt
        c: CTRL
+       a: Alt
        g: GUI key (CMD on Mac)
        s: Shift
        3: Layer NEO3
        4: Layer NEO4
        f: Layer FUNC
-   - `*` indicates that a key_override exists
-   - `"…` indicates the compose key. Used to type German umlautes and other stuff.
+   - `*` indicates that a key override exists
+   - `"…` indicates the compose key. Used to type German umlautes (and other stuff).
 
        ┌────┬────┬────┐                     ┌────┬────┬────┐
        │  M │  L │  C ├─────┐         ┌─────┤  ,*│ "… │  U │
