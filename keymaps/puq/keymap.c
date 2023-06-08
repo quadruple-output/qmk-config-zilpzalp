@@ -229,6 +229,27 @@ enum custom_keycodes {
 #define FUNC_RS XXXXXXX
 #define FUNC_RE XXXXXXX
 
+// Combos:
+const uint16_t PROGMEM puq_l1_l4[] = {PUQ_L1, PUQ_L4, COMBO_END};
+const uint16_t PROGMEM puq_l3_l6[] = {PUQ_L3, PUQ_L6, COMBO_END};
+const uint16_t PROGMEM puq_l4_l7[] = {PUQ_L4, PUQ_L7, COMBO_END};
+const uint16_t PROGMEM puq_l6_l9[] = {PUQ_L6, PUQ_L9, COMBO_END};
+const uint16_t PROGMEM puq_r1_r4[] = {PUQ_R1, PUQ_R4, COMBO_END};
+const uint16_t PROGMEM puq_r3_r6[] = {PUQ_R3, PUQ_R6, COMBO_END};
+const uint16_t PROGMEM puq_r4_r7[] = {PUQ_R4, PUQ_R7, COMBO_END};
+const uint16_t PROGMEM puq_r6_r9[] = {PUQ_R6, PUQ_R9, COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(puq_l1_l4, DE_Z),
+    COMBO(puq_l3_l6, KC_J),
+    COMBO(puq_l4_l7, KC_F),
+    COMBO(puq_l6_l9, KC_P),
+    COMBO(puq_r1_r4, KC_X),
+    COMBO(puq_r3_r6, KC_K),
+    COMBO(puq_r4_r7, KC_F),
+    COMBO(puq_r6_r9, KC_P),
+};
+
 // Key Overrides:
 const key_override_t shift_comma_is_dash = ko_make_with_layers_and_negmods(
         MOD_MASK_SHIFT,
@@ -251,27 +272,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     NULL // terminator
 };
 
-// Combos:
-const uint16_t PROGMEM puq_l1_l4[] = {PUQ_L1, PUQ_L4, COMBO_END};
-const uint16_t PROGMEM puq_l3_l6[] = {PUQ_L3, PUQ_L6, COMBO_END};
-const uint16_t PROGMEM puq_l4_l7[] = {PUQ_L4, PUQ_L7, COMBO_END};
-const uint16_t PROGMEM puq_l6_l9[] = {PUQ_L6, PUQ_L9, COMBO_END};
-const uint16_t PROGMEM puq_r1_r4[] = {PUQ_R1, PUQ_R4, COMBO_END};
-const uint16_t PROGMEM puq_r3_r6[] = {PUQ_R3, PUQ_R6, COMBO_END};
-const uint16_t PROGMEM puq_r4_r7[] = {PUQ_R4, PUQ_R7, COMBO_END};
-const uint16_t PROGMEM puq_r6_r9[] = {PUQ_R6, PUQ_R9, COMBO_END};
-
-combo_t key_combos[] = {
-    COMBO(puq_l1_l4, DE_Z),
-    COMBO(puq_l3_l6, KC_J),
-    COMBO(puq_l4_l7, KC_F),
-    COMBO(puq_l6_l9, KC_P),
-    COMBO(puq_r1_r4, KC_X),
-    COMBO(puq_r3_r6, KC_K),
-    COMBO(puq_r4_r7, KC_F),
-    COMBO(puq_r6_r9, KC_P),
-};
-
+// Keymaps (not much info here):
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [PUQ] = LAYOUT(
               PUQ_L7, PUQ_L8, PUQ_L9, PUQ_LA,         PUQ_RA, PUQ_R7, PUQ_R8, PUQ_R9,
