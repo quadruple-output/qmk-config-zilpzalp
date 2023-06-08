@@ -251,58 +251,25 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     NULL // terminator
 };
 
-// LEFT HAND HOME ROW MODS
-#define CTL_A MT(MOD_LCTL, KC_A)
-#define ALT_S MT(MOD_LALT, KC_S)
-#define GUI_D MT(MOD_LGUI, KC_D)
-#define SFT_F MT(MOD_LSFT, KC_F)
-#define RALT_G MT(MOD_RALT, KC_G)
-// RIGHT HAND HOME ROW MODS
-#define RALT_H MT(MOD_RALT, KC_H)
-#define SFT_J MT(MOD_RSFT, KC_J)
-#define GUI_K MT(MOD_RGUI, KC_K)
-#define ALT_L MT(MOD_LALT, KC_L)
-#define CTL_P MT(MOD_RCTL, KC_P)
-// LAYER TAP BEHAVIORS
-#define NUM_ESC LT(_NUM, KC_ESC)
-#define NAV_SPC LT(_NAV, KC_SPC)
-#define SYM_KCN LT(_SYM, KC_N)
-#define FUN_ENT LT(_FUN, KC_ENT)
-
-enum combo_events {
-    CAPSWORD_COMBO,
-    CAPSLOCK_COMBO,
-    Q_COMBO,
-    Z_COMBO,
-    B_COMBO,
-    MINUS_COMBO,
-    SLASH_COMBO,
-    SEMI_COMBO,
-    QUOT_COMBO,
-    COMBO_LENGTH
-};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-const uint16_t PROGMEM capsword_combo[] = {SFT_F, SFT_J, COMBO_END};
-const uint16_t PROGMEM capslock_combo[] = {KC_W, KC_O, COMBO_END};
-const uint16_t PROGMEM q_combo[] = {KC_W, KC_E, COMBO_END};
-const uint16_t PROGMEM z_combo[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM b_combo[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM minus_combo[] = {KC_M, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM slash_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
-const uint16_t PROGMEM semi_combo[] = {KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM quot_combo[] = {KC_U, KC_I, COMBO_END};
+// Combos:
+const uint16_t PROGMEM puq_l1_l4[] = {PUQ_L1, PUQ_L4, COMBO_END};
+const uint16_t PROGMEM puq_l3_l6[] = {PUQ_L3, PUQ_L6, COMBO_END};
+const uint16_t PROGMEM puq_l4_l7[] = {PUQ_L4, PUQ_L7, COMBO_END};
+const uint16_t PROGMEM puq_l6_l9[] = {PUQ_L6, PUQ_L9, COMBO_END};
+const uint16_t PROGMEM puq_r1_r4[] = {PUQ_R1, PUQ_R4, COMBO_END};
+const uint16_t PROGMEM puq_r3_r6[] = {PUQ_R3, PUQ_R6, COMBO_END};
+const uint16_t PROGMEM puq_r4_r7[] = {PUQ_R4, PUQ_R7, COMBO_END};
+const uint16_t PROGMEM puq_r6_r9[] = {PUQ_R6, PUQ_R9, COMBO_END};
 
 combo_t key_combos[] = {
-    [CAPSWORD_COMBO] = COMBO(capsword_combo, CW_TOGG),
-    [CAPSLOCK_COMBO] = COMBO(capslock_combo, KC_CAPS),
-    [Q_COMBO] = COMBO(q_combo, KC_Q),
-    [Z_COMBO] = COMBO(z_combo, KC_Z),
-    [B_COMBO] = COMBO(b_combo, KC_B),
-    [MINUS_COMBO] = COMBO(minus_combo, KC_MINUS),
-    [SLASH_COMBO] = COMBO(slash_combo, KC_SLASH),
-    [SEMI_COMBO] = COMBO(semi_combo, KC_SCLN),
-    [QUOT_COMBO] = COMBO(quot_combo, KC_QUOT),
+    COMBO(puq_l1_l4, DE_Z),
+    COMBO(puq_l3_l6, KC_J),
+    COMBO(puq_l4_l7, KC_F),
+    COMBO(puq_l6_l9, KC_P),
+    COMBO(puq_r1_r4, KC_X),
+    COMBO(puq_r3_r6, KC_K),
+    COMBO(puq_r4_r7, KC_F),
+    COMBO(puq_r6_r9, KC_P),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
