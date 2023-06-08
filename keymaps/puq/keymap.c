@@ -19,15 +19,65 @@ enum custom_keycodes {
 
 // This layout assumes that the OS layout is set to "German (no dead keys)"
 // We define `DE`-versions for symbols that do not match their US keyboard positions:
-#define DE_Y            KC_Z
-#define DE_Z            KC_Y
-#define DE_HASH         KC_BACKSLASH
-#define DE_MINUS        KC_SLASH
-#define DE_UUML         KC_LEFT_BRACKET
-#define DE_UNDERSCORE   S(DE_MINUS)
-#define DE_SINGLE_QUOTE S(DE_HASH)
-#define DE_BULLET       A(DE_UUML)
-#define DE_DASH         A(DE_MINUS)
+#define DE_CARET        KC_GRAVE            // ^
+#define DE_EXCLAMATION  S(KC_1)             // !
+#define DE_DOUBLE_QUOTE S(KC_2)             // "
+#define DE_DOLLAR       S(KC_4)             // $
+#define DE_PERCENT      S(KC_5)             // %
+#define DE_AMPERSAND    S(KC_6)             // &
+#define DE_SLASH        S(KC_7)             // /
+#define DE_LEFT_PAREN   S(KC_8)             // (
+#define DE_RIGHT_PAREN  S(KC_9)             // )
+#define DE_EQUAL        S(KC_0)             // =
+#define DE_SZLIG        KC_MINUS            // ß
+#define DE_QUESTION     S(DE_SZLIG)         // ?
+#define DE_ACUTE        KC_EQUAL            // ´
+#define DE_BACKTICK     S(DE_ACUTE)         // `
+#define DE_Q            KC_Q                // q
+#define DE_W            KC_W                // w
+#define DE_E            KC_E                // e
+#define DE_R            KC_R                // r
+#define DE_T            KC_T                // t
+#define DE_Z            KC_Y                // z
+#define DE_U            KC_U                // u
+#define DE_I            KC_I                // i
+#define DE_O            KC_O                // o
+#define DE_P            KC_P                // p
+#define DE_UUML         KC_LEFT_BRACKET     // ü
+#define DE_BULLET       A(DE_UUML)          // •
+#define DE_PLUS         KC_RIGHT_BRACKET    // +
+#define DE_ASTERISK     S(DE_PLUS)          // *
+#define DE_A            KC_A                // a
+#define DE_S            KC_S                // s
+#define DE_D            KC_D                // d
+#define DE_F            KC_F                // f
+#define DE_G            KC_G                // g
+#define DE_H            KC_H                // h
+#define DE_J            KC_J                // j
+#define DE_K            KC_K                // k
+#define DE_L            KC_L                // l
+#define DE_AT           A(DE_L)             // @
+#define DE_OUML         KC_SEMICOLON        // ö
+#define DE_AUML         KC_QUOTE            // ä
+#define DE_HASH         KC_BACKSLASH        // #
+#define DE_SINGLE_QUOTE S(DE_HASH)          // '
+#define DE_LESS_THAN    KC_NONUS_BACKSLASH  // <
+#define DE_GREATER_THAN S(DE_LESS_THAN)     // >
+#define DE_Y            KC_Z                // y
+#define DE_X            KC_X                // x
+#define DE_C            KC_C                // c
+#define DE_V            KC_V                // v
+#define DE_B            KC_B                // b
+#define DE_N            KC_N                // n
+#define DE_M            KC_M                // m
+#define DE_COMMA        KC_COMMA            // ,
+#define DE_SEMICOLON    S(DE_COMMA)         // ;
+#define DE_DOT          KC_DOT              // .
+#define DE_COLON        S(DE_DOT)           // :
+#define DE_ELLIPSIS     A(DE_DOT)           // …
+#define DE_MINUS        KC_SLASH            // -
+#define DE_UNDERSCORE   S(DE_MINUS)         // _
+#define DE_DASH         A(DE_MINUS)         // –
 
 /* naming scheme for #defines:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -67,32 +117,32 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define PUQ_LP LT(NEO3, KC_S)
-#define PUQ_L1 KC_B
-#define PUQ_L2 MT(MOD_LCTL, KC_W)
-#define PUQ_L3 KC_V
-#define PUQ_L4 LT(NEO4, KC_N)
-#define PUQ_L5 MT(MOD_LGUI, KC_R)
-#define PUQ_L6 MT(MOD_LALT, KC_T)
-#define PUQ_L7 KC_M
-#define PUQ_L8 KC_L
-#define PUQ_L9 KC_C
-#define PUQ_LA MT(MOD_LCTL|MOD_LGUI, KC_G)
-#define PUQ_LB MT(MOD_LCTL|MOD_LALT|MOD_LGUI, KC_D)
+#define PUQ_LP LT(NEO3, DE_S)
+#define PUQ_L1 DE_B
+#define PUQ_L2 MT(MOD_LCTL, DE_W)
+#define PUQ_L3 DE_V
+#define PUQ_L4 LT(NEO4, DE_N)
+#define PUQ_L5 MT(MOD_LGUI, DE_R)
+#define PUQ_L6 MT(MOD_LALT, DE_T)
+#define PUQ_L7 DE_M
+#define PUQ_L8 DE_L
+#define PUQ_L9 DE_C
+#define PUQ_LA MT(MOD_LCTL|MOD_LGUI, DE_G)
+#define PUQ_LB MT(MOD_LCTL|MOD_LALT|MOD_LGUI, DE_D)
 #define PUQ_LS MT(MOD_LSFT, KC_SPACE)
 #define PUQ_LE LT(FUNC, KC_ESCAPE)
-#define PUQ_RP LT(NEO3, KC_H)
+#define PUQ_RP LT(NEO3, DE_H)
 #define PUQ_R1 DE_UNDERSCORE
-#define PUQ_R2 MT(MOD_LCTL, KC_DOT)
+#define PUQ_R2 MT(MOD_LCTL, DE_DOT)
 #define PUQ_R3 DE_Y
-#define PUQ_R4 MT(MOD_LALT, KC_A)
-#define PUQ_R5 MT(MOD_LGUI, KC_E)
-#define PUQ_R6 LT(NEO4, KC_I)
-#define PUQ_R7 KC_COMMA
+#define PUQ_R4 MT(MOD_LALT, DE_A)
+#define PUQ_R5 MT(MOD_LGUI, DE_E)
+#define PUQ_R6 LT(NEO4, DE_I)
+#define PUQ_R7 DE_COMMA
 #define PUQ_R8 C(KC_F13) // quick-compose key. add SHIFT for full compose key
-#define PUQ_R9 KC_U
-#define PUQ_RA MT(MOD_LCTL|MOD_LGUI, KC_Q)
-#define PUQ_RB MT(MOD_LCTL|MOD_LALT|MOD_LGUI, KC_O)
+#define PUQ_R9 DE_U
+#define PUQ_RA MT(MOD_LCTL|MOD_LGUI, DE_Q)
+#define PUQ_RB MT(MOD_LCTL|MOD_LALT|MOD_LGUI, DE_O)
 #define PUQ_RS MT(MOD_LSFT, KC_SPACE)
 #define PUQ_RE LT(FUNC, KC_ENTER)
 
@@ -231,13 +281,13 @@ const uint16_t PROGMEM puq_r6_r9[] = {PUQ_R6, PUQ_R9, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(puq_l1_l4, DE_Z),
-    COMBO(puq_l3_l6, KC_J),
-    COMBO(puq_l4_l7, KC_F),
-    COMBO(puq_l6_l9, KC_P),
-    COMBO(puq_r1_r4, KC_X),
-    COMBO(puq_r3_r6, KC_K),
-    COMBO(puq_r4_r7, KC_F),
-    COMBO(puq_r6_r9, KC_P),
+    COMBO(puq_l3_l6, DE_J),
+    COMBO(puq_l4_l7, DE_F),
+    COMBO(puq_l6_l9, DE_P),
+    COMBO(puq_r1_r4, DE_X),
+    COMBO(puq_r3_r6, DE_K),
+    COMBO(puq_r4_r7, DE_F),
+    COMBO(puq_r6_r9, DE_P),
 };
 
 // Key Overrides:
