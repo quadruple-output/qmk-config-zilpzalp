@@ -19,65 +19,72 @@ enum custom_keycodes {
 
 // This layout assumes that the OS layout is set to "German (no dead keys)"
 // We define `DE`-versions for symbols that do not match their US keyboard positions:
-#define DE_CARET        KC_GRAVE            // ^
-#define DE_EXCLAMATION  S(KC_1)             // !
-#define DE_DOUBLE_QUOTE S(KC_2)             // "
-#define DE_DOLLAR       S(KC_4)             // $
-#define DE_PERCENT      S(KC_5)             // %
-#define DE_AMPERSAND    S(KC_6)             // &
-#define DE_SLASH        S(KC_7)             // /
-#define DE_LEFT_PAREN   S(KC_8)             // (
-#define DE_RIGHT_PAREN  S(KC_9)             // )
-#define DE_EQUAL        S(KC_0)             // =
-#define DE_SZLIG        KC_MINUS            // ß
-#define DE_QUESTION     S(DE_SZLIG)         // ?
-#define DE_ACUTE        KC_EQUAL            // ´
-#define DE_BACKTICK     S(DE_ACUTE)         // `
-#define DE_Q            KC_Q                // q
-#define DE_W            KC_W                // w
-#define DE_E            KC_E                // e
-#define DE_R            KC_R                // r
-#define DE_T            KC_T                // t
-#define DE_Z            KC_Y                // z
-#define DE_U            KC_U                // u
-#define DE_I            KC_I                // i
-#define DE_O            KC_O                // o
-#define DE_P            KC_P                // p
-#define DE_UUML         KC_LEFT_BRACKET     // ü
-#define DE_BULLET       A(DE_UUML)          // •
-#define DE_PLUS         KC_RIGHT_BRACKET    // +
-#define DE_ASTERISK     S(DE_PLUS)          // *
-#define DE_A            KC_A                // a
-#define DE_S            KC_S                // s
-#define DE_D            KC_D                // d
-#define DE_F            KC_F                // f
-#define DE_G            KC_G                // g
-#define DE_H            KC_H                // h
-#define DE_J            KC_J                // j
-#define DE_K            KC_K                // k
-#define DE_L            KC_L                // l
-#define DE_AT           A(DE_L)             // @
-#define DE_OUML         KC_SEMICOLON        // ö
-#define DE_AUML         KC_QUOTE            // ä
-#define DE_HASH         KC_BACKSLASH        // #
-#define DE_SINGLE_QUOTE S(DE_HASH)          // '
-#define DE_LESS_THAN    KC_NONUS_BACKSLASH  // <
-#define DE_GREATER_THAN S(DE_LESS_THAN)     // >
-#define DE_Y            KC_Z                // y
-#define DE_X            KC_X                // x
-#define DE_C            KC_C                // c
-#define DE_V            KC_V                // v
-#define DE_B            KC_B                // b
-#define DE_N            KC_N                // n
-#define DE_M            KC_M                // m
-#define DE_COMMA        KC_COMMA            // ,
-#define DE_SEMICOLON    S(DE_COMMA)         // ;
-#define DE_DOT          KC_DOT              // .
-#define DE_COLON        S(DE_DOT)           // :
-#define DE_ELLIPSIS     A(DE_DOT)           // …
-#define DE_MINUS        KC_SLASH            // -
-#define DE_UNDERSCORE   S(DE_MINUS)         // _
-#define DE_DASH         A(DE_MINUS)         // –
+#define DE_CARET         KC_GRAVE           // ^
+#define DE_EXCLAMATION   S(KC_1)            // !
+#define DE_DOUBLE_QUOTE  S(KC_2)            // "
+#define DE_DOLLAR        S(KC_4)            // $
+#define DE_PERCENT       S(KC_5)            // %
+#define DE_LEFT_BRACKET  A(KC_5)            // %
+#define DE_AMPERSAND     S(KC_6)            // &
+#define DE_RIGHT_BRACKET A(KC_6)            // &
+#define DE_SLASH         S(KC_7)            // /
+#define DE_PIPE          A(KC_7)            // |
+#define DE_BACKSLASH     S(A(KC_7))         // |
+#define DE_LEFT_PAREN    S(KC_8)            // (
+#define DE_LEFT_BRACE    A(KC_8)            // {
+#define DE_RIGHT_PAREN   S(KC_9)            // )
+#define DE_RIGHT_BRACE   A(KC_9)            // }
+#define DE_EQUAL         S(KC_0)            // =
+#define DE_SZLIG         KC_MINUS           // ß
+#define DE_QUESTION      S(DE_SZLIG)        // ?
+#define DE_ACUTE         KC_EQUAL           // ´
+#define DE_BACKQUOTE     S(DE_ACUTE)        // `
+#define DE_Q             KC_Q               // q
+#define DE_W             KC_W               // w
+#define DE_E             KC_E               // e
+#define DE_R             KC_R               // r
+#define DE_T             KC_T               // t
+#define DE_Z             KC_Y               // z
+#define DE_U             KC_U               // u
+#define DE_I             KC_I               // i
+#define DE_O             KC_O               // o
+#define DE_P             KC_P               // p
+#define DE_UUML          KC_LEFT_BRACKET    // ü
+#define DE_BULLET        A(DE_UUML)         // •
+#define DE_PLUS          KC_RIGHT_BRACKET   // +
+#define DE_ASTERISK      S(DE_PLUS)         // *
+#define DE_A             KC_A               // a
+#define DE_S             KC_S               // s
+#define DE_D             KC_D               // d
+#define DE_F             KC_F               // f
+#define DE_G             KC_G               // g
+#define DE_H             KC_H               // h
+#define DE_J             KC_J               // j
+#define DE_K             KC_K               // k
+#define DE_L             KC_L               // l
+#define DE_AT            A(DE_L)            // @
+#define DE_OUML          KC_SEMICOLON       // ö
+#define DE_AUML          KC_QUOTE           // ä
+#define DE_HASH          KC_BACKSLASH       // #
+#define DE_QUOTE         S(DE_HASH)         // '
+#define DE_LESS_THAN     KC_NONUS_BACKSLASH // <
+#define DE_GREATER_THAN  S(DE_LESS_THAN)    // >
+#define DE_Y             KC_Z               // y
+#define DE_X             KC_X               // x
+#define DE_C             KC_C               // c
+#define DE_V             KC_V               // v
+#define DE_B             KC_B               // b
+#define DE_N             KC_N               // n
+#define DE_TILDE         A(DE_N)            // ~
+#define DE_M             KC_M               // m
+#define DE_COMMA         KC_COMMA           // ,
+#define DE_SEMICOLON     S(DE_COMMA)        // ;
+#define DE_DOT           KC_DOT             // .
+#define DE_COLON         S(DE_DOT)          // :
+#define DE_ELLIPSIS      A(DE_DOT)          // …
+#define DE_MINUS         KC_SLASH           // -
+#define DE_UNDERSCORE    S(DE_MINUS)        // _
+#define DE_DASH          A(DE_MINUS)        // –
 
 /* naming scheme for #defines:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -150,42 +157,42 @@ enum custom_keycodes {
        ┌────┬────┬────┐                     ┌────┬────┬────┐
        │  … │  [ │  ] ├────┐           ┌────┤  < │  > │  = │
        ├────┼────┼────┤  ^ │           │  ! ├────┼────┼─ & ┤
-  ┌────┤  / │g { │a } ├────┤           ├────┤a ( │g ) │4 - ├────┐
-  │  \ ├─ # ┼────┼─ ` ┤  * │           │  ? ├─ + ┼────┼─ ; ┤3 : │
-  └────┤  $ │c | │  ~ ├────┘           └────┤  % │c " │  ' ├────┘
+  ┌────┤4 / │  { │  } ├────┤           ├────┤  ( │  ) │4 - ├────┐
+  │  \ ├─ # ┼────┼─ ` ┤  * │           │  ? ├─ + ┼────┼─ ; ┤  : │
+  └────┤  $ │  | │  ~ ├────┘           └────┤  % │  " │  ' ├────┘
        └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴────┴────┘
                     │ SPC │ ESC │ │ ENT │ SPC │
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define NEO3_LP XXXXXXX
-#define NEO3_L1 XXXXXXX
-#define NEO3_L2 XXXXXXX
-#define NEO3_L3 XXXXXXX
-#define NEO3_L4 XXXXXXX
-#define NEO3_L5 XXXXXXX
-#define NEO3_L6 XXXXXXX
-#define NEO3_L7 XXXXXXX
-#define NEO3_L8 XXXXXXX
-#define NEO3_L9 XXXXXXX
-#define NEO3_LA XXXXXXX
-#define NEO3_LB XXXXXXX
-#define NEO3_LS XXXXXXX
-#define NEO3_LE XXXXXXX
-#define NEO3_RP XXXXXXX
-#define NEO3_R1 XXXXXXX
-#define NEO3_R2 XXXXXXX
-#define NEO3_R3 XXXXXXX
-#define NEO3_R4 XXXXXXX
-#define NEO3_R5 XXXXXXX
-#define NEO3_R6 XXXXXXX
-#define NEO3_R7 XXXXXXX
-#define NEO3_R8 XXXXXXX
-#define NEO3_R9 XXXXXXX
-#define NEO3_RA XXXXXXX
-#define NEO3_RB XXXXXXX
-#define NEO3_RS XXXXXXX
-#define NEO3_RE XXXXXXX
+#define NEO3_LP DE_BACKSLASH
+#define NEO3_L1 DE_DOLLAR
+#define NEO3_L2 DE_PIPE
+#define NEO3_L3 DE_TILDE
+#define NEO3_L4 LT(NEO4, DE_SLASH)
+#define NEO3_L5 DE_LEFT_BRACE
+#define NEO3_L6 DE_RIGHT_BRACE
+#define NEO3_L7 DE_ELLIPSIS
+#define NEO3_L8 DE_LEFT_BRACKET
+#define NEO3_L9 DE_RIGHT_BRACKET
+#define NEO3_LA DE_CARET
+#define NEO3_LB DE_ASTERISK
+#define NEO3_LS KC_SPACE
+#define NEO3_LE KC_ESCAPE
+#define NEO3_RP DE_COLON
+#define NEO3_R1 DE_PERCENT
+#define NEO3_R2 DE_DOUBLE_QUOTE
+#define NEO3_R3 DE_QUOTE
+#define NEO3_R4 DE_LEFT_PAREN
+#define NEO3_R5 DE_RIGHT_PAREN
+#define NEO3_R6 LT(NEO4, DE_MINUS)
+#define NEO3_R7 DE_LESS_THAN
+#define NEO3_R8 DE_GREATER_THAN
+#define NEO3_R9 DE_EQUAL
+#define NEO3_RA DE_EXCLAMATION
+#define NEO3_RB DE_QUESTION
+#define NEO3_RS KC_SPACE
+#define NEO3_RE KC_ENTER
 
 /* Layer NEO4:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
@@ -278,6 +285,11 @@ const uint16_t PROGMEM puq_r1_r4[] = {PUQ_R1, PUQ_R4, COMBO_END};
 const uint16_t PROGMEM puq_r3_r6[] = {PUQ_R3, PUQ_R6, COMBO_END};
 const uint16_t PROGMEM puq_r4_r7[] = {PUQ_R4, PUQ_R7, COMBO_END};
 const uint16_t PROGMEM puq_r6_r9[] = {PUQ_R6, PUQ_R9, COMBO_END};
+const uint16_t PROGMEM neo3_l1_l4[] = {NEO3_L1, NEO3_L4, COMBO_END};
+const uint16_t PROGMEM neo3_l3_l6[] = {NEO3_L3, NEO3_L6, COMBO_END};
+const uint16_t PROGMEM neo3_r1_r4[] = {NEO3_R1, NEO3_R4, COMBO_END};
+const uint16_t PROGMEM neo3_r3_r6[] = {NEO3_R3, NEO3_R6, COMBO_END};
+const uint16_t PROGMEM neo3_r6_r9[] = {NEO3_R6, NEO3_R9, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(puq_l1_l4, DE_Z),
@@ -288,6 +300,12 @@ combo_t key_combos[] = {
     COMBO(puq_r3_r6, DE_K),
     COMBO(puq_r4_r7, DE_F),
     COMBO(puq_r6_r9, DE_P),
+
+    COMBO(neo3_l1_l4, DE_HASH),
+    COMBO(neo3_l3_l6, DE_BACKQUOTE),
+    COMBO(neo3_r1_r4, DE_PLUS),
+    COMBO(neo3_r3_r6, DE_SEMICOLON),
+    COMBO(neo3_r6_r9, DE_AMPERSAND),
 };
 
 // Key Overrides:
