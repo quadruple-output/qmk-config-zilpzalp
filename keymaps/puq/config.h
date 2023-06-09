@@ -8,5 +8,6 @@
 #define COMBO_MUST_TAP_PER_COMBO // actually, all combos must tap, but there is no global option for this
 
 #define TAPPING_TERM 200 // default: 200
+#define RETRO_TAPPING
 
 #define PERMISSIVE_HOLD
