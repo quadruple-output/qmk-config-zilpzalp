@@ -107,6 +107,7 @@ enum custom_keycodes {
        a: Alt
        g: GUI key (CMD on Mac)
        s: Shift
+       t: indicates a tap dance function
        3: Layer NEO3
        4: Layer NEO4
        f: Layer FUNC
@@ -245,7 +246,6 @@ enum tapdances {
     TD_F07_F17,
     TD_F08_F18,
     TD_F09_F19,
-    TD_F10_F20,
     // On a Mac, function keys above F20 are ignored.
 };
 
@@ -259,17 +259,16 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_F07_F17] = ACTION_TAP_DANCE_DOUBLE(KC_F7, KC_F17),
     [TD_F08_F18] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_F18),
     [TD_F09_F19] = ACTION_TAP_DANCE_DOUBLE(KC_F9, KC_F19),
-    [TD_F10_F20] = ACTION_TAP_DANCE_DOUBLE(KC_F10, KC_F20),
 };
 
 /* Layer FUNC:
-       ┌────┬────┬────┐                     ┌────┬────┬────┐
-       │ F7 │ F8 │ F9 ├────┐           ┌────┤Vol-│Mute│Vol+│
-       ├────┼────┼────┤ F10│           │XXXX├────┼────┼────┤
-  ┌────┤ F6 │ F5 │ F6 ├────┤           ├────┤a <<│g||>│ >> ├────┐
-  │ F12├────┼────┼────┤ F11│           │XXXX├────┼────┼────┤Menu│
-  └────┤ F1 │ F2 │ F3 ├────┘           └────┤BRI↓│c   │BRI↑├────┘
-       └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴────┴────┘
+       ┌────┬────┬────┐                     ┌────┬─────┬────┐
+       │t F7│t F8│t F9├────┐           ┌────┤Vol-│Mute │Vol+│
+       ├────┼────┼────┤ F10│           │XXXX├────┼─────┼────┤
+  ┌────┤t F6│t F5│t F6├────┤           ├────┤a <<│g||> │ >> ├────┐
+  │ F12├────┼────┼────┤ F11│           │XXXX├────┼─────┼────┤Menu│
+  └────┤t F1│t F2│t F3├────┘           └────┤BRI↓│c F20│BRI↑├────┘
+       └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴─────┴────┘
                     │ LMB │ RMB │ │ LMB │ RMB │
                     └─────┴─────┘ └─────┴─────┘
 */
@@ -284,13 +283,13 @@ tap_dance_action_t tap_dance_actions[] = {
 #define FUNC_L7 TD(TD_F07_F17)
 #define FUNC_L8 TD(TD_F08_F18)
 #define FUNC_L9 TD(TD_F09_F19)
-#define FUNC_LA TD(TD_F10_F20)
+#define FUNC_LA KC_F10
 #define FUNC_LB KC_F11
 #define FUNC_LS KC_MS_BTN1
 #define FUNC_LE KC_MS_BTN2
 #define FUNC_RP MY_MENU
 #define FUNC_R1 KC_BRIGHTNESS_UP
-#define FUNC_R2 MT(MOD_LCTL, KC_F20) // experimental
+#define FUNC_R2 MT(MOD_LCTL, KC_F20) // mapped to `mic key` in BetterTouchTool
 #define FUNC_R3 KC_BRIGHTNESS_DOWN
 #define FUNC_R4 MT(MOD_LALT, KC_MEDIA_PREV_TRACK)
 #define FUNC_R5 MT(MOD_LGUI, KC_MEDIA_PLAY_PAUSE)
