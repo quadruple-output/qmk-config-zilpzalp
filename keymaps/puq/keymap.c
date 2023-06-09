@@ -363,6 +363,9 @@ uint16_t get_combo_term(uint16_t _index, combo_t *combo) {
 }
 
 bool get_combo_must_tap(uint16_t _index, combo_t *combo) {
+    // If you want all combos to be tap-only, just uncomment the next line
+    return true;
+/*
     // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be
     // tap-only, this is for you:
     uint16_t key;
@@ -377,6 +380,7 @@ bool get_combo_must_tap(uint16_t _index, combo_t *combo) {
         i += 1;
     }
     return false;
+*/
 }
 
 // Key Overrides:
