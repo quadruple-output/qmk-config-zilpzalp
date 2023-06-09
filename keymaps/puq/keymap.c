@@ -311,13 +311,19 @@ const uint16_t PROGMEM puq_l6_l9[] = {PUQ_L6, PUQ_L9, COMBO_END};
 const uint16_t PROGMEM puq_r1_r4[] = {PUQ_R1, PUQ_R4, COMBO_END};
 const uint16_t PROGMEM puq_r3_r6[] = {PUQ_R3, PUQ_R6, COMBO_END};
 const uint16_t PROGMEM puq_r4_r7[] = {PUQ_R4, PUQ_R7, COMBO_END};
+const uint16_t PROGMEM puq_r4_r5[] = {PUQ_R4, PUQ_R5, COMBO_END};
+const uint16_t PROGMEM puq_r5_r6[] = {PUQ_R5, PUQ_R6, COMBO_END};
 const uint16_t PROGMEM puq_r6_r9[] = {PUQ_R6, PUQ_R9, COMBO_END};
 const uint16_t PROGMEM neo3_l1_l4[] = {NEO3_L1, NEO3_L4, COMBO_END};
 const uint16_t PROGMEM neo3_l3_l6[] = {NEO3_L3, NEO3_L6, COMBO_END};
 const uint16_t PROGMEM neo3_r1_r4[] = {NEO3_R1, NEO3_R4, COMBO_END};
 const uint16_t PROGMEM neo3_r3_r6[] = {NEO3_R3, NEO3_R6, COMBO_END};
+const uint16_t PROGMEM neo3_r4_r5[] = {NEO3_R4, NEO3_R5, COMBO_END};
+const uint16_t PROGMEM neo3_r5_r6[] = {NEO3_R5, NEO3_R6, COMBO_END};
 const uint16_t PROGMEM neo3_r6_r9[] = {NEO3_R6, NEO3_R9, COMBO_END};
 const uint16_t PROGMEM neo4_l4_l7[] = {NEO4_L4, NEO4_L7, COMBO_END};
+const uint16_t PROGMEM neo4_r4_r5[] = {NEO4_R4, NEO4_R5, COMBO_END};
+const uint16_t PROGMEM neo4_r5_r6[] = {NEO4_R5, NEO4_R6, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(puq_l1_l4, DE_Z),
@@ -336,7 +342,42 @@ combo_t key_combos[] = {
     COMBO(neo3_r6_r9, DE_AMPERSAND),
 
     COMBO(neo4_l4_l7, KC_PAGE_UP),
+
+    // BACKSPACE & DELETE on (almost) all layers:
+    COMBO(puq_r4_r5, KC_BACKSPACE),
+    COMBO(puq_r5_r6, KC_DELETE),
+    COMBO(neo3_r4_r5, KC_BACKSPACE),
+    COMBO(neo3_r5_r6, KC_DELETE),
+    COMBO(neo4_r4_r5, KC_BACKSPACE),
+    COMBO(neo4_r5_r6, KC_DELETE),
 };
+
+uint16_t get_combo_term(uint16_t _index, combo_t *combo) {
+    switch (combo->keycode) {
+        case KC_BACKSPACE:
+        case KC_DELETE:
+            // these combos are on the home row and must have an extremely short TERM
+            return 20;
+    }
+    return COMBO_TERM;
+}
+
+bool get_combo_must_tap(uint16_t _index, combo_t *combo) {
+    // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be
+    // tap-only, this is for you:
+    uint16_t key;
+    uint8_t i = 0;
+    while ((key = pgm_read_word(&combo->keys[i])) != COMBO_END) {
+        switch (key) {
+            case QK_MOD_TAP...QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP...QK_LAYER_TAP_MAX:
+            case QK_MOMENTARY...QK_MOMENTARY_MAX:
+                return true;
+        }
+        i += 1;
+    }
+    return false;
+}
 
 // Key Overrides:
 const key_override_t shift_comma_is_dash = ko_make_with_layers_and_negmods(
