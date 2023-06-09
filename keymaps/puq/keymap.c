@@ -168,12 +168,15 @@ enum custom_keycodes {
 
 #define NEO3_LP DE_BACKSLASH
 #define NEO3_L1 DE_DOLLAR
-#define NEO3_L2 MT(MOD_LCTL, DE_PIPE)
+// #define NEO3_L2 MT(MOD_LCTL, DE_PIPE) <- has modifier
+#define NEO3_L2 DE_PIPE
 #define NEO3_L3 DE_TILDE
 // #define NEO3_L4 LT(NEO4, DE_SLASH) <- does not work: DE_SLASH is shifted (not supported by LT)
 #define NEO3_L4 DE_SLASH
-#define NEO3_L5 MT(MOD_LGUI, DE_LEFT_BRACE)
-#define NEO3_L6 MT(MOD_LALT, DE_RIGHT_BRACE)
+// #define NEO3_L5 MT(MOD_LGUI, DE_LEFT_BRACE) <- has modifier
+#define NEO3_L5 DE_LEFT_BRACE
+//#define NEO3_L6 MT(MOD_LALT, DE_RIGHT_BRACE) <- has modifier
+#define NEO3_L6 DE_RIGHT_BRACE
 #define NEO3_L7 DE_ELLIPSIS
 #define NEO3_L8 DE_LEFT_BRACKET
 #define NEO3_L9 DE_RIGHT_BRACKET
@@ -183,10 +186,13 @@ enum custom_keycodes {
 #define NEO3_LE KC_ESCAPE
 #define NEO3_RP DE_COLON
 #define NEO3_R1 DE_PERCENT
-#define NEO3_R2 MT(MOD_LCTL, DE_DOUBLE_QUOTE)
+// #define NEO3_R2 MT(MOD_LCTL, DE_DOUBLE_QUOTE) <- has modifier
+#define NEO3_R2 DE_DOUBLE_QUOTE
 #define NEO3_R3 DE_QUOTE
-#define NEO3_R4 MT(MOD_LALT, DE_LEFT_PAREN)
-#define NEO3_R5 MT(MOD_LGUI, DE_RIGHT_PAREN)
+// #define NEO3_R4 MT(MOD_LALT, DE_LEFT_PAREN) <- has modifier
+#define NEO3_R4 DE_LEFT_PAREN
+// #define NEO3_R5 MT(MOD_LGUI, DE_RIGHT_PAREN) <- has modifier
+#define NEO3_R5 DE_RIGHT_PAREN
 #define NEO3_R6 LT(NEO4, DE_MINUS)
 #define NEO3_R7 DE_LESS_THAN
 #define NEO3_R8 DE_GREATER_THAN
