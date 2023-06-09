@@ -238,10 +238,10 @@ enum custom_keycodes {
 /* Layer FUNC:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
        │ F7 │ F8 │ F9 ├────┐           ┌────┤Vol-│Mute│Vol+│
-       ├────┼────┼────┤ F10│           │  * ├────┼────┼────┤
-  ┌────┤ F6 │ F5 │ F6 ├────┤     ┌─────┴────┤a <<│g||>│ >> ├────┐
-  │ F12├────┼────┼────┤ F11│     │ LK cag / ├────┼────┼────┤Menu│
-  └────┤ F1 │ F2 │ F3 ├────┘     └──────────┤BRI↓│c   │BRI↑├────┘
+       ├────┼────┼────┤ F10│           │XXXX├────┼────┼────┤
+  ┌────┤ F6 │ F5 │ F6 ├────┤           ├────┤a <<│g||>│ >> ├────┐
+  │ F12├────┼────┼────┤ F11│           │XXXX├────┼────┼────┤Menu│
+  └────┤ F1 │ F2 │ F3 ├────┘           └────┤BRI↓│c   │BRI↑├────┘
        └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴────┴────┘
                     │ LMB │ RMB │ │ LMB │ RMB │
                     └─────┴─────┘ └─────┴─────┘
@@ -262,15 +262,15 @@ enum custom_keycodes {
 #define FUNC_LS KC_MS_BTN1
 #define FUNC_LE KC_MS_BTN2
 #define FUNC_RP MY_MENU
-#define FUNC_R1 XXXXXXX
-#define FUNC_R2 XXXXXXX
-#define FUNC_R3 XXXXXXX
-#define FUNC_R4 XXXXXXX
-#define FUNC_R5 XXXXXXX
-#define FUNC_R6 XXXXXXX
-#define FUNC_R7 XXXXXXX
-#define FUNC_R8 XXXXXXX
-#define FUNC_R9 XXXXXXX
+#define FUNC_R1 KC_BRIGHTNESS_UP
+#define FUNC_R2 MT(MOD_LCTL, KC_F20) // experimental
+#define FUNC_R3 KC_BRIGHTNESS_DOWN
+#define FUNC_R4 MT(MOD_LALT, KC_MEDIA_PREV_TRACK)
+#define FUNC_R5 MT(MOD_LGUI, KC_MEDIA_PLAY_PAUSE)
+#define FUNC_R6 KC_MEDIA_NEXT_TRACK
+#define FUNC_R7 KC_AUDIO_VOL_DOWN
+#define FUNC_R8 KC_AUDIO_MUTE
+#define FUNC_R9 KC_AUDIO_VOL_UP
 #define FUNC_RA XXXXXXX
 #define FUNC_RB XXXXXXX
 #define FUNC_RS KC_MS_BTN2
