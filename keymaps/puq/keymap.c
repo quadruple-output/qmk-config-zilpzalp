@@ -86,6 +86,86 @@ enum custom_keycodes {
 #define DE_UNDERSCORE    S(DE_MINUS)        // _
 #define DE_DASH          A(DE_MINUS)        // –
 
+enum tapdances {
+    // Layer-Tabs or Mod-Tabs that require key codes with modifers:
+    TD_LT_NEO4_SLASH,
+    TD_MT_GUI_LEFT_BRACE,
+    TD_MT_ALT_RIGHT_BRACE,
+    TD_MT_CTL_PIPE,
+    TD_MT_ALT_LEFT_PAREN,
+    TD_MT_GUI_RIGHT_PAREN,
+    TD_MT_CTL_DOUBLE_QUOTE,
+    // higher F-Keys:
+    TD_F01_F11,
+    TD_F02_F12,
+    TD_F03_F13,
+    TD_F04_F14,
+    TD_F05_F15,
+    TD_F06_F16,
+    TD_F07_F17,
+    TD_F08_F18,
+    TD_F09_F19,
+    // On a Mac, function keys above F20 are ignored.
+};
+
+/*
+ *  Tap-Dance functions.
+ *
+ *  These functions are required because MT and LT do not support key codes with modifiers.
+ *  See https://docs.qmk.fm/#/feature_tap_dance?id=example-5
+ */
+
+// Define a type containing as many tapdance states as you need
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+} td_state_t;
+
+// Create a global instance of the tapdance state type
+// (I use a single instance for all tap-dances, although I am no sure if this is correct in all
+// possible situations.)
+static td_state_t td_state;
+
+// Function to determine the current tapdance state
+td_state_t cur_dance(tap_dance_state_t *state);
+
+// `finished` and `reset` functions for each tapdance keycode
+void neo4_slash_finished(tap_dance_state_t *state, void *user_data);
+void neo4_slash_reset(tap_dance_state_t *state, void *user_data);
+void gui_left_brace_finished(tap_dance_state_t *state, void *user_data);
+void gui_left_brace_reset(tap_dance_state_t *state, void *user_data);
+void alt_right_brace_finished(tap_dance_state_t *state, void *user_data);
+void alt_right_brace_reset(tap_dance_state_t *state, void *user_data);
+void ctl_pipe_finished(tap_dance_state_t *state, void *user_data);
+void ctl_pipe_reset(tap_dance_state_t *state, void *user_data);
+void alt_left_paren_finished(tap_dance_state_t *state, void *user_data);
+void alt_left_paren_reset(tap_dance_state_t *state, void *user_data);
+void gui_right_paren_finished(tap_dance_state_t *state, void *user_data);
+void gui_right_paren_reset(tap_dance_state_t *state, void *user_data);
+void ctl_double_quote_finished(tap_dance_state_t *state, void *user_data);
+void ctl_double_quote_reset(tap_dance_state_t *state, void *user_data);
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_LT_NEO4_SLASH]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, neo4_slash_finished, neo4_slash_reset),
+    [TD_MT_GUI_LEFT_BRACE]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, gui_left_brace_finished, gui_left_brace_reset),
+    [TD_MT_ALT_RIGHT_BRACE]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_right_brace_finished, alt_right_brace_reset),
+    [TD_MT_CTL_PIPE]          = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_pipe_finished, ctl_pipe_reset),
+    [TD_MT_ALT_LEFT_PAREN]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_left_paren_finished, alt_left_paren_reset),
+    [TD_MT_GUI_RIGHT_PAREN]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, gui_right_paren_finished, gui_right_paren_reset),
+    [TD_MT_CTL_DOUBLE_QUOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_double_quote_finished, ctl_double_quote_reset),
+    [TD_F01_F11] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F11),
+    [TD_F02_F12] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F12),
+    [TD_F03_F13] = ACTION_TAP_DANCE_DOUBLE(KC_F3, KC_F13),
+    [TD_F04_F14] = ACTION_TAP_DANCE_DOUBLE(KC_F4, KC_F14),
+    [TD_F05_F15] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F15),
+    [TD_F06_F16] = ACTION_TAP_DANCE_DOUBLE(KC_F6, KC_F16),
+    [TD_F07_F17] = ACTION_TAP_DANCE_DOUBLE(KC_F7, KC_F17),
+    [TD_F08_F18] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_F18),
+    [TD_F09_F19] = ACTION_TAP_DANCE_DOUBLE(KC_F9, KC_F19),
+};
+
 /* naming scheme for #defines:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
        │ L7 │ L8 │ L9 ├────┐           ┌────┤ R7 │ R8 │ R9 │
@@ -168,15 +248,19 @@ enum custom_keycodes {
 
 #define NEO3_LP DE_BACKSLASH
 #define NEO3_L1 DE_DOLLAR
-// #define NEO3_L2 MT(MOD_LCTL, DE_PIPE) <- has modifier
-#define NEO3_L2 DE_PIPE
+// #define NEO3_L2 MT(MOD_LCTL, DE_PIPE) <- does not work: DE_PIPE is shifted (not supported by LT)
+// #define NEO3_L2 DE_PIPE
+#define NEO3_L2 TD(TD_MT_CTL_PIPE)
 #define NEO3_L3 DE_TILDE
-// #define NEO3_L4 LT(NEO4, DE_SLASH) <- does not work: DE_SLASH is shifted (not supported by LT)
-#define NEO3_L4 DE_SLASH
-// #define NEO3_L5 MT(MOD_LGUI, DE_LEFT_BRACE) <- has modifier
-#define NEO3_L5 DE_LEFT_BRACE
-//#define NEO3_L6 MT(MOD_LALT, DE_RIGHT_BRACE) <- has modifier
-#define NEO3_L6 DE_RIGHT_BRACE
+// #define NEO3_L4 LT(NEO4, DE_SLASH) <- does not work
+// #define NEO3_L4 DE_SLASH
+#define NEO3_L4 TD(TD_LT_NEO4_SLASH)
+// #define NEO3_L5 MT(MOD_LGUI, DE_LEFT_BRACE) <- does not work
+// #define NEO3_L5 DE_LEFT_BRACE
+#define NEO3_L5 TD(TD_MT_GUI_LEFT_BRACE)
+//#define NEO3_L6 MT(MOD_LALT, DE_RIGHT_BRACE) <- does not work
+// #define NEO3_L6 DE_RIGHT_BRACE
+#define NEO3_L6 TD(TD_MT_ALT_RIGHT_BRACE)
 #define NEO3_L7 DE_ELLIPSIS
 #define NEO3_L8 DE_LEFT_BRACKET
 #define NEO3_L9 DE_RIGHT_BRACKET
@@ -186,13 +270,16 @@ enum custom_keycodes {
 #define NEO3_LE KC_ESCAPE
 #define NEO3_RP DE_COLON
 #define NEO3_R1 DE_PERCENT
-// #define NEO3_R2 MT(MOD_LCTL, DE_DOUBLE_QUOTE) <- has modifier
-#define NEO3_R2 DE_DOUBLE_QUOTE
+// #define NEO3_R2 MT(MOD_LCTL, DE_DOUBLE_QUOTE) <- does not work
+// #define NEO3_R2 DE_DOUBLE_QUOTE
+#define NEO3_R2 TD(TD_MT_CTL_DOUBLE_QUOTE)
 #define NEO3_R3 DE_QUOTE
-// #define NEO3_R4 MT(MOD_LALT, DE_LEFT_PAREN) <- has modifier
-#define NEO3_R4 DE_LEFT_PAREN
-// #define NEO3_R5 MT(MOD_LGUI, DE_RIGHT_PAREN) <- has modifier
-#define NEO3_R5 DE_RIGHT_PAREN
+// #define NEO3_R4 MT(MOD_LALT, DE_LEFT_PAREN) <- does not work
+// #define NEO3_R4 DE_LEFT_PAREN
+#define NEO3_R4 TD(TD_MT_ALT_LEFT_PAREN)
+// #define NEO3_R5 MT(MOD_LGUI, DE_RIGHT_PAREN) <- does not work
+// #define NEO3_R5 DE_RIGHT_PAREN
+#define NEO3_R5 TD(TD_MT_GUI_RIGHT_PAREN)
 #define NEO3_R6 LT(NEO4, DE_MINUS)
 #define NEO3_R7 DE_LESS_THAN
 #define NEO3_R8 DE_GREATER_THAN
@@ -242,31 +329,6 @@ enum custom_keycodes {
 #define NEO4_RB KC_KP_SLASH
 #define NEO4_RS MT(MOD_LSFT, KC_KP_0)
 #define NEO4_RE KC_ENTER
-
-enum tapdances {
-    TD_F01_F11,
-    TD_F02_F12,
-    TD_F03_F13,
-    TD_F04_F14,
-    TD_F05_F15,
-    TD_F06_F16,
-    TD_F07_F17,
-    TD_F08_F18,
-    TD_F09_F19,
-    // On a Mac, function keys above F20 are ignored.
-};
-
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_F01_F11] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F11),
-    [TD_F02_F12] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F12),
-    [TD_F03_F13] = ACTION_TAP_DANCE_DOUBLE(KC_F3, KC_F13),
-    [TD_F04_F14] = ACTION_TAP_DANCE_DOUBLE(KC_F4, KC_F14),
-    [TD_F05_F15] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F15),
-    [TD_F06_F16] = ACTION_TAP_DANCE_DOUBLE(KC_F6, KC_F16),
-    [TD_F07_F17] = ACTION_TAP_DANCE_DOUBLE(KC_F7, KC_F17),
-    [TD_F08_F18] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_F18),
-    [TD_F09_F19] = ACTION_TAP_DANCE_DOUBLE(KC_F9, KC_F19),
-};
 
 /* Layer FUNC:
        ┌────┬────┬────┐                     ┌────┬─────┬────┐
@@ -458,3 +520,135 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      FUNC_LS, FUNC_LE,  FUNC_RE, FUNC_RS
     )
 };
+
+/*
+ * Implementations of tap-dance functions:
+ */
+
+// Determine the tapdance state to return
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    }
+    return TD_UNKNOWN;
+}
+
+void neo4_slash_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP: register_code16(DE_SLASH); break;
+        case TD_SINGLE_HOLD: layer_on(NEO4); break;
+        default: break;
+    }
+}
+
+void neo4_slash_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP: unregister_code16(DE_SLASH); break;
+        case TD_SINGLE_HOLD: layer_off(NEO4); break;
+        default: break;
+    }
+}
+
+void gui_left_brace_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP: register_code16(DE_LEFT_BRACE); break;
+        case TD_SINGLE_HOLD: register_mods(MOD_BIT(KC_LGUI)); break;
+        default: break;
+    }
+}
+
+void gui_left_brace_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP: unregister_code16(DE_LEFT_BRACE); break;
+        case TD_SINGLE_HOLD: unregister_mods(MOD_BIT(KC_LGUI)); break;
+        default: break;
+    }
+}
+
+void alt_right_brace_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP: register_code16(DE_RIGHT_BRACE); break;
+        case TD_SINGLE_HOLD: register_mods(MOD_BIT(KC_LALT)); break;
+        default: break;
+    }
+}
+
+void alt_right_brace_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP: unregister_code16(DE_RIGHT_BRACE); break;
+        case TD_SINGLE_HOLD: unregister_mods(MOD_BIT(KC_LALT)); break;
+        default: break;
+    }
+}
+
+void ctl_pipe_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP: register_code16(DE_PIPE); break;
+        case TD_SINGLE_HOLD: register_mods(MOD_BIT(KC_LCTL)); break;
+        default: break;
+    }
+}
+
+void ctl_pipe_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP: unregister_code16(DE_PIPE); break;
+        case TD_SINGLE_HOLD: unregister_mods(MOD_BIT(KC_LCTL)); break;
+        default: break;
+    }
+}
+
+void alt_left_paren_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP: register_code16(DE_LEFT_PAREN); break;
+        case TD_SINGLE_HOLD: register_mods(MOD_BIT(KC_LALT)); break;
+        default: break;
+    }
+}
+
+void alt_left_paren_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP: unregister_code16(DE_LEFT_PAREN); break;
+        case TD_SINGLE_HOLD: unregister_mods(MOD_BIT(KC_LALT)); break;
+        default: break;
+    }
+}
+
+void gui_right_paren_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP: register_code16(DE_RIGHT_PAREN); break;
+        case TD_SINGLE_HOLD: register_mods(MOD_BIT(KC_LGUI)); break;
+        default: break;
+    }
+}
+
+void gui_right_paren_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP: unregister_code16(DE_RIGHT_PAREN); break;
+        case TD_SINGLE_HOLD: unregister_mods(MOD_BIT(KC_LGUI)); break;
+        default: break;
+    }
+}
+
+void ctl_double_quote_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP: register_code16(DE_DOUBLE_QUOTE); break;
+        case TD_SINGLE_HOLD: register_mods(MOD_BIT(KC_LCTL)); break;
+        default: break;
+    }
+}
+
+void ctl_double_quote_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP: unregister_code16(DE_DOUBLE_QUOTE); break;
+        case TD_SINGLE_HOLD: unregister_mods(MOD_BIT(KC_LCTL)); break;
+        default: break;
+    }
+}
