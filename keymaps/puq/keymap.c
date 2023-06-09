@@ -317,6 +317,7 @@ const uint16_t PROGMEM neo3_l3_l6[] = {NEO3_L3, NEO3_L6, COMBO_END};
 const uint16_t PROGMEM neo3_r1_r4[] = {NEO3_R1, NEO3_R4, COMBO_END};
 const uint16_t PROGMEM neo3_r3_r6[] = {NEO3_R3, NEO3_R6, COMBO_END};
 const uint16_t PROGMEM neo3_r6_r9[] = {NEO3_R6, NEO3_R9, COMBO_END};
+const uint16_t PROGMEM neo4_l4_l7[] = {NEO4_L4, NEO4_L7, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(puq_l1_l4, DE_Z),
@@ -333,6 +334,8 @@ combo_t key_combos[] = {
     COMBO(neo3_r1_r4, DE_PLUS),
     COMBO(neo3_r3_r6, DE_SEMICOLON),
     COMBO(neo3_r6_r9, DE_AMPERSAND),
+
+    COMBO(neo4_l4_l7, KC_PAGE_UP),
 };
 
 // Key Overrides:
