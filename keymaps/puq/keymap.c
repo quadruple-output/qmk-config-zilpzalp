@@ -235,6 +235,36 @@ enum custom_keycodes {
 #define NEO4_RS MT(MOD_LSFT, KC_KP_0)
 #define NEO4_RE KC_ENTER
 
+enum tapdances {
+    TD_F1_F13,
+    TD_F2_F14,
+    TD_F3_F15,
+    TD_F4_F16,
+    TD_F5_F17,
+    TD_F6_F18,
+    TD_F7_F19,
+    TD_F8_F20,
+    TD_F9_F21,
+    TD_F10_F22,
+    TD_F11_F23,
+    TD_F12_F24,
+};
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_F1_F13] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F13),
+    [TD_F2_F14] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F14),
+    [TD_F3_F15] = ACTION_TAP_DANCE_DOUBLE(KC_F3, KC_F15),
+    [TD_F4_F16] = ACTION_TAP_DANCE_DOUBLE(KC_F4, KC_F16),
+    [TD_F5_F17] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F17),
+    [TD_F6_F18] = ACTION_TAP_DANCE_DOUBLE(KC_F6, KC_F18),
+    [TD_F7_F19] = ACTION_TAP_DANCE_DOUBLE(KC_F7, KC_F19),
+    [TD_F8_F20] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_F20),
+    [TD_F9_F21] = ACTION_TAP_DANCE_DOUBLE(KC_F9, KC_F21),
+    [TD_F10_F22] = ACTION_TAP_DANCE_DOUBLE(KC_F10, KC_F22),
+    [TD_F11_F23] = ACTION_TAP_DANCE_DOUBLE(KC_F11, KC_F23),
+    [TD_F12_F24] = ACTION_TAP_DANCE_DOUBLE(KC_F12, KC_F24),
+};
+
 /* Layer FUNC:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
        │ F7 │ F8 │ F9 ├────┐           ┌────┤Vol-│Mute│Vol+│
@@ -247,18 +277,18 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define FUNC_LP KC_F12
-#define FUNC_L1 KC_F1
-#define FUNC_L2 KC_F2
-#define FUNC_L3 KC_F3
-#define FUNC_L4 KC_F4
-#define FUNC_L5 KC_F5
-#define FUNC_L6 KC_F6
-#define FUNC_L7 KC_F7
-#define FUNC_L8 KC_F8
-#define FUNC_L9 KC_F9
-#define FUNC_LA KC_F10
-#define FUNC_LB KC_F11
+#define FUNC_LP TD(TD_F12_F24)
+#define FUNC_L1 TD(TD_F1_F13)
+#define FUNC_L2 TD(TD_F2_F14)
+#define FUNC_L3 TD(TD_F3_F15)
+#define FUNC_L4 TD(TD_F4_F16)
+#define FUNC_L5 TD(TD_F5_F17)
+#define FUNC_L6 TD(TD_F6_F18)
+#define FUNC_L7 TD(TD_F7_F19)
+#define FUNC_L8 TD(TD_F8_F20)
+#define FUNC_L9 TD(TD_F9_F21)
+#define FUNC_LA TD(TD_F10_F22)
+#define FUNC_LB TD(TD_F11_F23)
 #define FUNC_LS KC_MS_BTN1
 #define FUNC_LE KC_MS_BTN2
 #define FUNC_RP MY_MENU
