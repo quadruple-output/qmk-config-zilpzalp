@@ -14,7 +14,7 @@ enum zilpzalp_layers {
 #define FUNC_MASK (1 << FUNC)
 
 enum custom_keycodes {
-    UNUSED = SAFE_RANGE
+    MY_MENU = SAFE_RANGE
 };
 
 // This layout assumes that the OS layout is set to "German (no dead keys)"
@@ -247,21 +247,21 @@ enum custom_keycodes {
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define FUNC_LP XXXXXXX
-#define FUNC_L1 XXXXXXX
-#define FUNC_L2 XXXXXXX
-#define FUNC_L3 XXXXXXX
-#define FUNC_L4 XXXXXXX
-#define FUNC_L5 XXXXXXX
-#define FUNC_L6 XXXXXXX
-#define FUNC_L7 XXXXXXX
-#define FUNC_L8 XXXXXXX
-#define FUNC_L9 XXXXXXX
-#define FUNC_LA XXXXXXX
-#define FUNC_LB XXXXXXX
-#define FUNC_LS XXXXXXX
-#define FUNC_LE XXXXXXX
-#define FUNC_RP XXXXXXX
+#define FUNC_LP KC_F12
+#define FUNC_L1 KC_F1
+#define FUNC_L2 KC_F2
+#define FUNC_L3 KC_F3
+#define FUNC_L4 KC_F4
+#define FUNC_L5 KC_F5
+#define FUNC_L6 KC_F6
+#define FUNC_L7 KC_F7
+#define FUNC_L8 KC_F8
+#define FUNC_L9 KC_F9
+#define FUNC_LA KC_F10
+#define FUNC_LB KC_F11
+#define FUNC_LS KC_MS_BTN1
+#define FUNC_LE KC_MS_BTN2
+#define FUNC_RP MY_MENU
 #define FUNC_R1 XXXXXXX
 #define FUNC_R2 XXXXXXX
 #define FUNC_R3 XXXXXXX
@@ -273,8 +273,8 @@ enum custom_keycodes {
 #define FUNC_R9 XXXXXXX
 #define FUNC_RA XXXXXXX
 #define FUNC_RB XXXXXXX
-#define FUNC_RS XXXXXXX
-#define FUNC_RE XXXXXXX
+#define FUNC_RS KC_MS_BTN2
+#define FUNC_RE KC_MS_BTN1
 
 // Combos:
 const uint16_t PROGMEM puq_l1_l4[] = {PUQ_L1, PUQ_L4, COMBO_END};
@@ -329,6 +329,23 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_dot_is_bullet,
     NULL // terminator
 };
+
+// Custom Key Codes (Macros):
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MY_MENU:
+            if (record->event.pressed) {
+                // I have mapped double tapping the CMD key to show the context menu in BetterTouchTool.
+                tap_code(KC_LGUI);
+                tap_code(KC_LGUI);
+                // Since not all apps seem to define a propper context menu, we try S(KC_F10) as
+                // well:
+                tap_code16(S(KC_F10));
+            }
+            break;
+    }
+    return true; // continue processing the keycode
+}
 
 // Keymaps (not much info here):
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
