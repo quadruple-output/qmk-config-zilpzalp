@@ -158,7 +158,7 @@ enum custom_keycodes {
        ┌────┬────┬────┐                     ┌────┬────┬────┐
        │  … │  [ │  ] ├────┐           ┌────┤  < │  > │  = │
        ├────┼────┼────┤  ^ │           │  ! ├────┼────┼─ & ┤
-  ┌────┤4 / │  { │  } ├────┤           ├────┤  ( │  ) │4 - ├────┐
+  ┌────┤  / │  { │  } ├────┤           ├────┤  ( │  ) │4 - ├────┐
   │  \ ├─ # ┼────┼─ ` ┤  * │           │  ? ├─ + ┼────┼─ ; ┤  : │
   └────┤  $ │  | │  ~ ├────┘           └────┤  % │  " │  ' ├────┘
        └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴─┬──┴────┴────┘
@@ -170,7 +170,8 @@ enum custom_keycodes {
 #define NEO3_L1 DE_DOLLAR
 #define NEO3_L2 DE_PIPE
 #define NEO3_L3 DE_TILDE
-#define NEO3_L4 LT(NEO4, DE_SLASH)
+// #define NEO3_L4 LT(NEO4, DE_SLASH) <- does not work: DE_SLASH is shifted (not supported by LT)
+#define NEO3_L4 DE_SLASH
 #define NEO3_L5 DE_LEFT_BRACE
 #define NEO3_L6 DE_RIGHT_BRACE
 #define NEO3_L7 DE_ELLIPSIS
