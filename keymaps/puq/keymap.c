@@ -199,41 +199,41 @@ enum custom_keycodes {
        │<[X]│  ↑ │ [X]├────┐           ┌────┤  7 │  8 │  9 │
        ├ PG↑┼────┼────┤ PG↓│           │  * ├────┼────┼────┤
   ┌────┤  ← │g ↓ │a → ├────┤           ├────┤a 4 │g 5 │  6 ├────┐
-  │ ←← ├────┼────┼────┤ →→ │           │  / ├────┼────┼─ - ┤3 + │
+  │ ←← ├────┼────┼────┤ →→ │           │  / ├────┼────┼─ - ┤  + │
   └────┤ ->|│c \/│ <─┘├────┘           └────┤  1 │c 2 │  3 ├────┘
        └────┴────┴──┬─┴───┬─────┐ ┌─────┬───┴────┴────┴────┘
-                    │ SPC │ ESC │ │ ENT │ SPC │
+                    │s SPC│ ESC │ │ ENT │s  0 │
                     └─────┴─────┘ └─────┴─────┘
 */
 
-#define NEO4_LP XXXXXXX
-#define NEO4_L1 XXXXXXX
-#define NEO4_L2 XXXXXXX
-#define NEO4_L3 XXXXXXX
-#define NEO4_L4 XXXXXXX
-#define NEO4_L5 XXXXXXX
-#define NEO4_L6 XXXXXXX
-#define NEO4_L7 XXXXXXX
-#define NEO4_L8 XXXXXXX
-#define NEO4_L9 XXXXXXX
-#define NEO4_LA XXXXXXX
-#define NEO4_LB XXXXXXX
-#define NEO4_LS XXXXXXX
-#define NEO4_LE XXXXXXX
-#define NEO4_RP XXXXXXX
-#define NEO4_R1 XXXXXXX
-#define NEO4_R2 XXXXXXX
-#define NEO4_R3 XXXXXXX
-#define NEO4_R4 XXXXXXX
-#define NEO4_R5 XXXXXXX
-#define NEO4_R6 XXXXXXX
-#define NEO4_R7 XXXXXXX
-#define NEO4_R8 XXXXXXX
-#define NEO4_R9 XXXXXXX
-#define NEO4_RA XXXXXXX
-#define NEO4_RB XXXXXXX
-#define NEO4_RS XXXXXXX
-#define NEO4_RE XXXXXXX
+#define NEO4_LP G(KC_LEFT)
+#define NEO4_L1 KC_TAB
+#define NEO4_L2 MT(MOD_LCTL, KC_INSERT)
+#define NEO4_L3 KC_ENTER
+#define NEO4_L4 KC_LEFT
+#define NEO4_L5 MT(MOD_LGUI, KC_DOWN)
+#define NEO4_L6 MT(MOD_LALT, KC_RIGHT)
+#define NEO4_L7 KC_BACKSPACE
+#define NEO4_L8 KC_UP
+#define NEO4_L9 KC_DELETE
+#define NEO4_LA KC_PAGE_DOWN
+#define NEO4_LB G(KC_RIGHT)
+#define NEO4_LS MT(MOD_LSFT, KC_SPACE)
+#define NEO4_LE KC_ESCAPE
+#define NEO4_RP KC_KP_PLUS
+#define NEO4_R1 KC_KP_1
+#define NEO4_R2 MT(MOD_LCTL, KC_KP_2)
+#define NEO4_R3 KC_KP_3
+#define NEO4_R4 MT(MOD_LALT, KC_KP_4)
+#define NEO4_R5 MT(MOD_LGUI, KC_KP_5)
+#define NEO4_R6 KC_KP_6
+#define NEO4_R7 KC_KP_7
+#define NEO4_R8 KC_KP_8
+#define NEO4_R9 KC_KP_9
+#define NEO4_RA KC_KP_ASTERISK
+#define NEO4_RB KC_KP_SLASH
+#define NEO4_RS MT(MOD_LSFT, KC_KP_0)
+#define NEO4_RE KC_ENTER
 
 /* Layer FUNC:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
