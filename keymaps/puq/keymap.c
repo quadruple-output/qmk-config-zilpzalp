@@ -371,6 +371,18 @@ tap_dance_action_t tap_dance_actions[] = {
 #define FUNC_RS KC_MS_BTN2
 #define FUNC_RE KC_MS_BTN1
 
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case PUQ_LP:
+        case PUQ_RP:
+            // Immediately select the hold action when another key is pressed.
+            return true;
+        default:
+            // Do not select the hold action when another key is pressed.
+            return false;
+    }
+}
+
 // Combos:
 const uint16_t PROGMEM puq_l1_l4[] = {PUQ_L1, PUQ_L4, COMBO_END};
 const uint16_t PROGMEM puq_l3_l6[] = {PUQ_L3, PUQ_L6, COMBO_END};
