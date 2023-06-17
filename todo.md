@@ -1,0 +1,6 @@
+- activate NKRO? (try CMD-SHFT-F10)
+- M3: prefer hold for other half; always tap for same part
+- hold-time für combos verlängert (try `;`)
+- for columnar combos, increase hold time significantly (I don't thik that this hits the point.)
+- change combos from columns to rows (or offer both?)
+- realize M3 & M4 as combos (hold-only)
