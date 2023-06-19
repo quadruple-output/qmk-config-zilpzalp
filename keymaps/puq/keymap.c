@@ -1,5 +1,62 @@
 #include QMK_KEYBOARD_H
 #include "zilpzalp.h"
+#include "print.h"
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  //debug_enable=true;
+  //debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+
+typedef enum {
+    KBLOCK_UNDEF,
+    KBLOCK_LEFT,
+    KBLOCK_RIGHT,
+} kb_block_t;
+
+typedef struct {
+    bool active_left_before;
+    bool active_left;
+    bool active_right_before;
+    bool active_right;
+    kb_block_t last_change;
+} block_activity_t;
+
+static block_activity_t block_activity;
+
+void matrix_init_user(void) {
+    block_activity.active_left_before = false;
+    block_activity.active_left = false;
+    block_activity.active_right_before = false;
+    block_activity.active_right = false;
+    block_activity.last_change = KBLOCK_UNDEF;
+}
+
+void matrix_scan_user(void) {
+    // see zilpzalp.h for matrix layout
+    block_activity.active_left  = (matrix_get_row(0) | matrix_get_row(1) | matrix_get_row(2)) != 0;
+    block_activity.active_right = (matrix_get_row(4) | matrix_get_row(5) | matrix_get_row(6)) != 0;
+    if (block_activity.active_left && block_activity.active_left != block_activity.active_left_before) {
+        if (block_activity.last_change != KBLOCK_LEFT) {
+            print("[l]\n");
+            block_activity.last_change = KBLOCK_LEFT;
+        };
+    } else if (block_activity.active_right && block_activity.active_right != block_activity.active_right_before) {
+        if (block_activity.last_change != KBLOCK_RIGHT) {
+            print("[r]\n");
+            block_activity.last_change = KBLOCK_RIGHT;
+        };
+    } else if (!block_activity.active_left && !block_activity.active_right) {
+        if (block_activity.last_change != KBLOCK_UNDEF) {
+            print("[u]\n");
+            block_activity.last_change = KBLOCK_UNDEF;
+        }
+    }
+    block_activity.active_left_before = block_activity.active_left;
+    block_activity.active_right_before = block_activity.active_right;
+}
 
 enum zilpzalp_layers {
     PUQ,
@@ -371,48 +428,91 @@ tap_dance_action_t tap_dance_actions[] = {
 #define FUNC_RS KC_MS_BTN2
 #define FUNC_RE KC_MS_BTN1
 
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Custom Key Codes (Macros):
     switch (keycode) {
-        case PUQ_LP:
-        case PUQ_RP:
-            // Immediately select the hold action when another key is pressed.
-            return true;
-        default:
-            // Do not select the hold action when another key is pressed.
-            return false;
+        case MY_MENU:
+            if (record->event.pressed) {
+                // I have mapped double tapping the CMD key to show the context menu in BetterTouchTool.
+                tap_code(KC_LGUI);
+                tap_code(KC_LGUI);
+                // Since not all apps seem to define a propper context menu, we try S(KC_F10) as
+                // well:
+                tap_code16(S(KC_F10));
+            }
+            break;
     }
+    return true; // continue processing the keycode
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return true; // Immediately select the hold action when another key is tapped.
+    }
+}
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    bool result = false;
+    print("get_hold_on_other_key_press. ");
+    switch (keycode) {
+        // Immediately select the hold action when a key from the opposite block is pressed
+        case PUQ_LP:
+            if (block_activity.last_change == KBLOCK_RIGHT) {
+                print("right block activated -> hold");
+                result = true;
+            }
+        case PUQ_RP:
+            if (block_activity.last_change == KBLOCK_LEFT) {
+                print("left block activated -> hold");
+                result = true;
+            }
+    }
+    print("\n");
+    return result;
 }
 
 // Combos:
 const uint16_t PROGMEM puq_l1_l4[] = {PUQ_L1, PUQ_L4, COMBO_END};
 const uint16_t PROGMEM puq_l3_l6[] = {PUQ_L3, PUQ_L6, COMBO_END};
+const uint16_t PROGMEM puq_l4_l5[] = {PUQ_L4, PUQ_L5, COMBO_END};
+const uint16_t PROGMEM puq_l4_l6[] = {PUQ_L5, PUQ_L6, COMBO_END};
 const uint16_t PROGMEM puq_l4_l7[] = {PUQ_L4, PUQ_L7, COMBO_END};
 const uint16_t PROGMEM puq_l6_l9[] = {PUQ_L6, PUQ_L9, COMBO_END};
 const uint16_t PROGMEM puq_r1_r4[] = {PUQ_R1, PUQ_R4, COMBO_END};
+const uint16_t PROGMEM puq_r1_r2[] = {PUQ_R1, PUQ_R2, COMBO_END};
+const uint16_t PROGMEM puq_r2_r3[] = {PUQ_R2, PUQ_R3, COMBO_END};
 const uint16_t PROGMEM puq_r3_r6[] = {PUQ_R3, PUQ_R6, COMBO_END};
-const uint16_t PROGMEM puq_r4_r7[] = {PUQ_R4, PUQ_R7, COMBO_END};
 const uint16_t PROGMEM puq_r4_r5[] = {PUQ_R4, PUQ_R5, COMBO_END};
+const uint16_t PROGMEM puq_r4_r6[] = {PUQ_R4, PUQ_R6, COMBO_END};
+const uint16_t PROGMEM puq_r4_r7[] = {PUQ_R4, PUQ_R7, COMBO_END};
 const uint16_t PROGMEM puq_r5_r6[] = {PUQ_R5, PUQ_R6, COMBO_END};
 const uint16_t PROGMEM puq_r6_r9[] = {PUQ_R6, PUQ_R9, COMBO_END};
+
 const uint16_t PROGMEM neo3_l1_l4[] = {NEO3_L1, NEO3_L4, COMBO_END};
 const uint16_t PROGMEM neo3_l3_l6[] = {NEO3_L3, NEO3_L6, COMBO_END};
 const uint16_t PROGMEM neo3_r1_r4[] = {NEO3_R1, NEO3_R4, COMBO_END};
+const uint16_t PROGMEM neo3_r1_r2[] = {NEO3_R1, NEO3_R2, COMBO_END};
+const uint16_t PROGMEM neo3_r2_r3[] = {NEO3_R2, NEO3_R3, COMBO_END};
 const uint16_t PROGMEM neo3_r3_r6[] = {NEO3_R3, NEO3_R6, COMBO_END};
-const uint16_t PROGMEM neo3_r4_r5[] = {NEO3_R4, NEO3_R5, COMBO_END};
-const uint16_t PROGMEM neo3_r5_r6[] = {NEO3_R5, NEO3_R6, COMBO_END};
 const uint16_t PROGMEM neo3_r6_r9[] = {NEO3_R6, NEO3_R9, COMBO_END};
+
 const uint16_t PROGMEM neo4_l4_l7[] = {NEO4_L4, NEO4_L7, COMBO_END};
-const uint16_t PROGMEM neo4_r4_r5[] = {NEO4_R4, NEO4_R5, COMBO_END};
-const uint16_t PROGMEM neo4_r5_r6[] = {NEO4_R5, NEO4_R6, COMBO_END};
+const uint16_t PROGMEM neo4_r1_r2[] = {NEO4_R1, NEO4_R2, COMBO_END};
+const uint16_t PROGMEM neo4_r2_r3[] = {NEO4_R2, NEO4_R3, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(puq_l1_l4, DE_Z),
     COMBO(puq_l3_l6, DE_J),
+    COMBO(puq_l4_l5, MO(NEO3)),
+    COMBO(puq_l4_l6, MO(NEO4)),
     COMBO(puq_l4_l7, DE_F),
     COMBO(puq_l6_l9, DE_P),
     COMBO(puq_r1_r4, DE_X),
     COMBO(puq_r3_r6, DE_K),
+    COMBO(puq_r4_r6, MO(NEO4)),
     COMBO(puq_r4_r7, DE_F),
+    COMBO(puq_r5_r6, MO(NEO3)),
     COMBO(puq_r6_r9, DE_P),
 
     COMBO(neo3_l1_l4, DE_HASH),
@@ -424,27 +524,44 @@ combo_t key_combos[] = {
     COMBO(neo4_l4_l7, KC_PAGE_UP),
 
     // BACKSPACE & DELETE on (almost) all layers:
-    COMBO(puq_r4_r5, KC_BACKSPACE),
-    COMBO(puq_r5_r6, KC_DELETE),
-    COMBO(neo3_r4_r5, KC_BACKSPACE),
-    COMBO(neo3_r5_r6, KC_DELETE),
-    COMBO(neo4_r4_r5, KC_BACKSPACE),
-    COMBO(neo4_r5_r6, KC_DELETE),
+    COMBO(puq_r1_r2, KC_BACKSPACE),
+    COMBO(puq_r2_r3, KC_DELETE),
+    COMBO(neo3_r1_r2, KC_BACKSPACE),
+    COMBO(neo3_r2_r3, KC_DELETE),
+    COMBO(neo4_r1_r2, KC_BACKSPACE),
+    COMBO(neo4_r2_r3, KC_DELETE),
 };
 
 uint16_t get_combo_term(uint16_t _index, combo_t *combo) {
     switch (combo->keycode) {
         case KC_BACKSPACE:
         case KC_DELETE:
+        case MO(NEO3):
+        case MO(NEO4):
             // these combos are on the home row and must have an extremely short TERM
             return 20;
     }
     return COMBO_TERM;
 }
 
+bool get_combo_must_hold(uint16_t _index, combo_t *combo) {
+    switch (combo->keycode) {
+        case MO(NEO3):
+        case MO(NEO4):
+            return true;
+        default:
+            return false;
+    }
+}
+
 bool get_combo_must_tap(uint16_t _index, combo_t *combo) {
-    // If you want all combos to be tap-only, just uncomment the next line
-    return true;
+    switch (combo->keycode) {
+        case MO(NEO3):
+        case MO(NEO4):
+            return false;
+        default:
+            return true;
+    }
 /*
     // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be
     // tap-only, this is for you:
@@ -484,23 +601,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_dot_is_bullet,
     NULL // terminator
 };
-
-// Custom Key Codes (Macros):
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MY_MENU:
-            if (record->event.pressed) {
-                // I have mapped double tapping the CMD key to show the context menu in BetterTouchTool.
-                tap_code(KC_LGUI);
-                tap_code(KC_LGUI);
-                // Since not all apps seem to define a propper context menu, we try S(KC_F10) as
-                // well:
-                tap_code16(S(KC_F10));
-            }
-            break;
-    }
-    return true; // continue processing the keycode
-}
 
 // Keymaps (not much info here):
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
