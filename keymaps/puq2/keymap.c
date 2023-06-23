@@ -2,6 +2,27 @@
 #include "zilpzalp.h"
 #include "print.h"
 
+enum custom_keycodes {
+    MY_MENU = SAFE_RANGE
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Custom Key Codes (Macros):
+    switch (keycode) {
+        case MY_MENU:
+            if (record->event.pressed) {
+                // I have mapped double tapping the CMD key to show the context menu in BetterTouchTool.
+                tap_code(KC_LGUI);
+                tap_code(KC_LGUI);
+                // Since not all apps seem to define a propper context menu, we try S(KC_F10) as
+                // well:
+                tap_code16(S(KC_F10));
+            }
+            break;
+    }
+    return true; // continue processing the keycode
+}
+
 enum zilpzalp_layers {
     PUQ,
     SYM,
@@ -13,10 +34,6 @@ enum zilpzalp_layers {
 #define SYM_MASK (1 << SYM)
 #define NAV_MASK (1 << NAV)
 #define FCT_MASK (1 << FCT)
-
-enum custom_keycodes {
-    MY_MENU = SAFE_RANGE
-};
 
 // This layout assumes that the OS layout is set to "German (no dead keys)"
 // We define `DE`-versions for symbols that do not match their US keyboard positions.
@@ -102,6 +119,13 @@ enum custom_keycodes {
 Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer.
 */
 
+#define LAYER_COMBO(l, L, a, b) \
+const uint16_t PROGMEM l ## _ ## a ## _ ## b[] = {L ## _ ## a, L ## _ ## b, COMBO_END}
+#define PUQ_COMBO(a, b, kc)  COMBO(LAYER_COMBO(puq, PUQ, a, b), kc)
+#define SYM_COMBO(a, b, kc)  COMBO(LAYER_COMBO(sym, SYM, a, b), kc)
+#define NAV_COMBO(a, b, kc)  COMBO(LAYER_COMBO(nav, NAV, a, b), kc)
+#define FCT_COMBO(a, b, kc)  COMBO(LAYER_COMBO(fct, FCT, a, b), kc)
+
 /* Layer PUQ:
 
    Legend:
@@ -133,34 +157,49 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
                                └───────┴───────┘ └───────┴───────┘
 */
 
-#define PUQ_LP LT(SYM, DE_S)
+#define PUQ_LP MT(MOD_LALT, DE_S)
 #define PUQ_L1 DE_B
-#define PUQ_L2 MT(MOD_LCTL, DE_W)
+#define PUQ_L2 DE_W
 #define PUQ_L3 DE_V
-#define PUQ_L4 LT(NAV, DE_N)
-#define PUQ_L5 MT(MOD_LGUI, DE_R)
-#define PUQ_L6 MT(MOD_LALT, DE_T)
+#define PUQ_L4 DE_N
+#define PUQ_L5 DE_R
+#define PUQ_L6 DE_T
 #define PUQ_L7 DE_M
 #define PUQ_L8 DE_L
 #define PUQ_L9 DE_C
-#define PUQ_LA MT(MOD_LCTL|MOD_LGUI, DE_G)
-#define PUQ_LB MT(MOD_LCTL|MOD_LALT|MOD_LGUI, DE_D)
+#define PUQ_LA MT(MOD_LCTL|MOD_LALT|MOD_LGUI, DE_G)
+#define PUQ_LB MT(MOD_LCTL, DE_D)
 #define PUQ_LS MT(MOD_LSFT, KC_SPACE)
-#define PUQ_LE LT(FCT, KC_ESCAPE)
-#define PUQ_RP LT(SYM, DE_H)
+#define PUQ_LE MT(MOD_LGUI, KC_ESCAPE)
+#define PUQ_RP MT(MOD_LALT, DE_H)
 #define PUQ_R1 DE_UNDERSCORE_
-#define PUQ_R2 MT(MOD_LCTL, DE_DOT)
+#define PUQ_R2 DE_P
 #define PUQ_R3 DE_Y
-#define PUQ_R4 MT(MOD_LALT, DE_A)
-#define PUQ_R5 MT(MOD_LGUI, DE_E)
-#define PUQ_R6 LT(NAV, DE_I)
-#define PUQ_R7 DE_COMMA
+#define PUQ_R4 DE_A
+#define PUQ_R5 DE_E
+#define PUQ_R6 DE_I
+#define PUQ_R7 DE_F
 #define PUQ_R8 C(KC_F13) // quick-compose key. add SHIFT for full compose key
 #define PUQ_R9 DE_U
-#define PUQ_RA MT(MOD_LCTL|MOD_LGUI, DE_Q)
-#define PUQ_RB MT(MOD_LCTL|MOD_LALT|MOD_LGUI, DE_O)
+#define PUQ_RA MT(MOD_LCTL|MOD_LALT|MOD_LGUI, DE_Q)
+#define PUQ_RB MT(MOD_LCTL, DE_O)
 #define PUQ_RS MT(MOD_LSFT, KC_SPACE)
-#define PUQ_RE LT(FCT, KC_ENTER)
+#define PUQ_RE MT(MOD_LGUI, KC_ENTER)
+
+#define PUQ_COMBO_01 PUQ_COMBO(L1, L2, DE_Z)
+#define PUQ_COMBO_02 PUQ_COMBO(L2, L3, DE_J)
+#define PUQ_COMBO_03 PUQ_COMBO(L4, L5, TT(NAV))
+#define PUQ_COMBO_04 PUQ_COMBO(L4, L6, TT(FCT))
+#define PUQ_COMBO_05 PUQ_COMBO(L5, L6, TT(SYM))
+#define PUQ_COMBO_06 PUQ_COMBO(L7, L8, DE_COMMA)
+#define PUQ_COMBO_07 PUQ_COMBO(L8, L9, KC_DELETE)
+#define PUQ_COMBO_08 PUQ_COMBO(R1, R2, DE_X)
+#define PUQ_COMBO_09 PUQ_COMBO(R2, R3, DE_K)
+#define PUQ_COMBO_10 PUQ_COMBO(R4, R5, TT(SYM))
+#define PUQ_COMBO_11 PUQ_COMBO(R4, R6, TT(FCT))
+#define PUQ_COMBO_12 PUQ_COMBO(R5, R6, TT(NAV))
+#define PUQ_COMBO_13 PUQ_COMBO(R7, R8, KC_BACKSPACE)
+#define PUQ_COMBO_14 PUQ_COMBO(R8, R9, DE_DOT)
 
 /* Layer SYM:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -184,19 +223,11 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
 
 #define SYM_LP DE_BACKSLASH_
 #define SYM_L1 DE_DOLLAR_
-// #define SYM_L2 MT(MOD_LCTL, DE_PIPE_) <- does not work: DE_PIPE_ is shifted (not supported by LT)
 #define SYM_L2 DE_PIPE_
-// #define SYM_L2 TD(TD_MT_CTL_PIPE)
 #define SYM_L3 DE_TILDE_
-// #define SYM_L4 LT(NAV, DE_SLASH_) <- does not work
 #define SYM_L4 DE_SLASH_
-// #define SYM_L4 TD(TD_LT_NAV_SLASH)
-// #define SYM_L5 MT(MOD_LGUI, DE_LEFT_BRACE_) <- does not work
 #define SYM_L5 DE_LEFT_BRACE_
-// #define SYM_L5 TD(TD_MT_GUI_LEFT_BRACE)
-//#define SYM_L6 MT(MOD_LALT, DE_RIGHT_BRACE_) <- does not work
 #define SYM_L6 DE_RIGHT_BRACE_
-// #define SYM_L6 TD(TD_MT_ALT_RIGHT_BRACE)
 #define SYM_L7 DE_ELLIPSIS_
 #define SYM_L8 DE_LEFT_BRACKET_
 #define SYM_L9 DE_RIGHT_BRACKET_
@@ -206,17 +237,11 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
 #define SYM_LE KC_ESCAPE
 #define SYM_RP DE_COLON_
 #define SYM_R1 DE_PERCENT_
-// #define SYM_R2 MT(MOD_LCTL, DE_DOUBLE_QUOTE_) <- does not work
 #define SYM_R2 DE_DOUBLE_QUOTE_
-// #define SYM_R2 TD(TD_MT_CTL_DOUBLE_QUOTE)
 #define SYM_R3 DE_QUOTE_
-// #define SYM_R4 MT(MOD_LALT, DE_LEFT_PAREN_) <- does not work
 #define SYM_R4 DE_LEFT_PAREN_
-// #define SYM_R4 TD(TD_MT_ALT_LEFT_PAREN)
-// #define SYM_R5 MT(MOD_LGUI, DE_RIGHT_PAREN_) <- does not work
 #define SYM_R5 DE_RIGHT_PAREN_
-// #define SYM_R5 TD(TD_MT_GUI_RIGHT_PAREN)
-#define SYM_R6 LT(NAV, DE_MINUS)
+#define SYM_R6 DE_MINUS
 #define SYM_R7 DE_LESS_THAN
 #define SYM_R8 DE_GREATER_THAN_
 #define SYM_R9 DE_EQUAL_
@@ -322,30 +347,6 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
 #define FCT_RB XXXXXXX
 #define FCT_RS KC_MS_BTN2
 #define FCT_RE KC_MS_BTN1
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Custom Key Codes (Macros):
-    switch (keycode) {
-        case MY_MENU:
-            if (record->event.pressed) {
-                // I have mapped double tapping the CMD key to show the context menu in BetterTouchTool.
-                tap_code(KC_LGUI);
-                tap_code(KC_LGUI);
-                // Since not all apps seem to define a propper context menu, we try S(KC_F10) as
-                // well:
-                tap_code16(S(KC_F10));
-            }
-            break;
-    }
-    return true; // continue processing the keycode
-}
-
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        default:
-            return true; // Immediately select the hold action when another key is tapped.
-    }
-}
 
 // Combos:
 const uint16_t PROGMEM puq_l1_l4[] = {PUQ_L1, PUQ_L4, COMBO_END};
