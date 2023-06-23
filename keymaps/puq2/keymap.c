@@ -149,7 +149,7 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
           │   ●┈┈┈┈┈┈FCT┈┈┈┈┈┈●   │       │           │       │   ●┈┈┈┈┈┈FCT┈┈┈┈┈┈●   │
   ┌───────┼───────┼───────┼───────┤   D   │           │   O   ├───────┼───────┼───────┼───────┐
   │       │   ●┈┈┈Z┈┈┈◐┈┈┈J┈┈┈○   │ c     │           │ c     │   ●┈┈┈X┈┈┈◐┈┈┈K┈┈┈○   │       │
-  │   S   │   B   │   W   │   V   ├───────┘           └───────┤   _   │   P   │   Y   │   H   │
+  │   S   │   B   │   W   │   V   ├───────┘           └───────┤   -   │   P   │   Y   │   H   │
   │ a     │       │       │       │                           │       │       │       │ a     │
   └───────┴───────┴───────┴────┬──┴────┬───────┐ ┌───────┬────┴──┬────┴───────┴───────┴───────┘
                                │       │       │ │       │       │
@@ -173,7 +173,7 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
 #define PUQ_LS MT(MOD_LSFT, KC_SPACE)
 #define PUQ_LE MT(MOD_LGUI, KC_ESCAPE)
 #define PUQ_RP MT(MOD_LALT, DE_H)
-#define PUQ_R1 DE_UNDERSCORE_
+#define PUQ_R1 DE_MINUS
 #define PUQ_R2 DE_P
 #define PUQ_R3 DE_Y
 #define PUQ_R4 DE_A
@@ -233,12 +233,12 @@ const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
 
 /* Layer SYM:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
-          │       │   ●┈┈┈⌦┈┈┈●   │                           │   ●┈┈┈⌫┈┈┈◐┈┈┈&┈┈┈○   │
+          │       │   ●┈┈┈⌦┈┈┈●   │                           │   ●┈┈┈⌫┈┈┈●   │       │
           │   …   │   [   │   ]   ├───────┐           ┌───────┤   <   │   >   │   =   │
           │       │       │       │       │           │       │       │       │       │
           ├───────┼───────┼───────┤   ^   │           │   !   ├───────┼───────┼───────┤
           │       │       │       │       │           │       │       │       │       │
-          │   /   │   {   │   }   ├───────┤           ├───────┤   (   │   )   │   -   │
+          │   /   │   {   │   }   ├───────┤           ├───────┤   (   │   )   │   &   │
           │       │       │       │       │           │       │       │       │       │
   ┌───────┼───────┼───────┼───────┤   *   │           │   ?   ├───────┼───────┼───────┼───────┐
   │       │       │       │       │       │           │       │       │       │       │       │
@@ -271,7 +271,7 @@ const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
 #define SYM_R3 DE_QUOTE_
 #define SYM_R4 DE_LEFT_PAREN_
 #define SYM_R5 DE_RIGHT_PAREN_
-#define SYM_R6 DE_MINUS
+#define SYM_R6 DE_AMPERSAND_
 #define SYM_R7 DE_LESS_THAN
 #define SYM_R8 DE_GREATER_THAN_
 #define SYM_R9 DE_EQUAL_
@@ -284,8 +284,6 @@ DEF_COMBO(SYM, 01, L8, L9);
 #define COMBO_SYM_01_ACTION KC_DELETE
 DEF_COMBO(SYM, 02, R7, R8);
 #define COMBO_SYM_02_ACTION KC_BACKSPACE
-DEF_COMBO(SYM, 03, R8, R9);
-#define COMBO_SYM_03_ACTION DE_AMPERSAND_
 
 /* Layer NAV:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -447,7 +445,6 @@ combo_t key_combos[] = {
 
     COMBO(COMBO_SYM_01, COMBO_SYM_01_ACTION),
     COMBO(COMBO_SYM_02, COMBO_SYM_02_ACTION),
-    COMBO(COMBO_SYM_03, COMBO_SYM_03_ACTION),
 
     COMBO(COMBO_NAV_01, COMBO_NAV_01_ACTION),
     COMBO(COMBO_NAV_02, COMBO_NAV_02_ACTION),
