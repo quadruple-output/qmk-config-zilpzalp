@@ -237,16 +237,16 @@ const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
           │   …   │   [   │   ]   ├───────┐           ┌───────┤   <   │   >   │   =   │
           │       │       │       │       │           │       │       │       │       │
           ├───────┼───────┼───────┤   ^   │           │   !   ├───────┼───────┼───────┤
-          │   ●┈┈NAV┈┈●   │       │       │           │       │       │   ●┈┈NAV┈┈●   │
+          │       │       │       │       │           │       │       │       │       │
           │   /   │   {   │   }   ├───────┤           ├───────┤   (   │   )   │   -   │
           │       │       │       │       │           │       │       │       │       │
   ┌───────┼───────┼───────┼───────┤   *   │           │   ?   ├───────┼───────┼───────┼───────┐
-  │       │   ●┈┈┈#┈┈┈◐┈┈┈`┈┈┈○   │       │           │       │   ●┈┈┈+┈┈┈◐┈┈┈;┈┈┈○   │       │
+  │       │       │       │       │       │           │       │       │       │       │       │
   │   \   │   $   │   |   │   ~   ├───────┘           └───────┤   %   │   "   │   '   │   :   │
   │       │       │       │       │                           │       │       │       │       │
   └───────┴───────┴───────┴────┬──┴────┬───────┐ ┌───────┬────┴──┬────┴───────┴───────┴───────┘
                                │       │       │ │       │       │
-                               │  SPC  │  ESC  │ │  ENT  │  SPC  │
+                               │   #   │   `   │ │   +   │   ;   │
                                │       │       │ │       │       │
                                └───────┴───────┘ └───────┴───────┘
 */
@@ -263,8 +263,8 @@ const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
 #define SYM_L9 DE_RIGHT_BRACKET_
 #define SYM_LA DE_CARET
 #define SYM_LB DE_ASTERISK_
-#define SYM_LS KC_SPACE
-#define SYM_LE KC_ESCAPE
+#define SYM_LS DE_HASH
+#define SYM_LE DE_BACKQUOTE_
 #define SYM_RP DE_COLON_
 #define SYM_R1 DE_PERCENT_
 #define SYM_R2 DE_DOUBLE_QUOTE_
@@ -277,27 +277,15 @@ const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
 #define SYM_R9 DE_EQUAL_
 #define SYM_RA DE_EXCLAMATION_
 #define SYM_RB DE_QUESTION_
-#define SYM_RS KC_SPACE
-#define SYM_RE KC_ENTER
+#define SYM_RS DE_SEMICOLON_
+#define SYM_RE DE_PLUS
 
-DEF_COMBO(SYM, 01, L1, L2);
-#define COMBO_SYM_01_ACTION DE_HASH
-DEF_COMBO(SYM, 02, L2, L3);
-#define COMBO_SYM_02_ACTION DE_CARET
-DEF_COMBO(SYM, 03, L4, L5);
-#define COMBO_SYM_03_ACTION TT(NAV)
-DEF_COMBO(SYM, 04, L8, L9);
-#define COMBO_SYM_04_ACTION KC_DELETE
-DEF_COMBO(SYM, 05, R1, R2);
-#define COMBO_SYM_05_ACTION DE_PLUS
-DEF_COMBO(SYM, 06, R2, R3);
-#define COMBO_SYM_06_ACTION DE_SEMICOLON_
-DEF_COMBO(SYM, 07, R5, R6);
-#define COMBO_SYM_07_ACTION TT(NAV)
-DEF_COMBO(SYM, 08, R7, R8);
-#define COMBO_SYM_08_ACTION KC_BACKSPACE
-DEF_COMBO(SYM, 09, R8, R9);
-#define COMBO_SYM_09_ACTION DE_AMPERSAND_
+DEF_COMBO(SYM, 01, L8, L9);
+#define COMBO_SYM_01_ACTION KC_DELETE
+DEF_COMBO(SYM, 02, R7, R8);
+#define COMBO_SYM_02_ACTION KC_BACKSPACE
+DEF_COMBO(SYM, 03, R8, R9);
+#define COMBO_SYM_03_ACTION DE_AMPERSAND_
 
 /* Layer NAV:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -460,12 +448,6 @@ combo_t key_combos[] = {
     COMBO(COMBO_SYM_01, COMBO_SYM_01_ACTION),
     COMBO(COMBO_SYM_02, COMBO_SYM_02_ACTION),
     COMBO(COMBO_SYM_03, COMBO_SYM_03_ACTION),
-    COMBO(COMBO_SYM_04, COMBO_SYM_04_ACTION),
-    COMBO(COMBO_SYM_05, COMBO_SYM_05_ACTION),
-    COMBO(COMBO_SYM_06, COMBO_SYM_06_ACTION),
-    COMBO(COMBO_SYM_07, COMBO_SYM_07_ACTION),
-    COMBO(COMBO_SYM_08, COMBO_SYM_08_ACTION),
-    COMBO(COMBO_SYM_09, COMBO_SYM_09_ACTION),
 
     COMBO(COMBO_NAV_01, COMBO_NAV_01_ACTION),
     COMBO(COMBO_NAV_02, COMBO_NAV_02_ACTION),
