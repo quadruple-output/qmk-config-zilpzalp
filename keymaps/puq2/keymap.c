@@ -2,39 +2,6 @@
 #include "zilpzalp.h"
 #include "print.h"
 
-enum custom_keycodes {
-    MY_MENU = SAFE_RANGE
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Custom Key Codes (Macros):
-    switch (keycode) {
-        case MY_MENU:
-            if (record->event.pressed) {
-                // I have mapped double tapping the CMD key to show the context menu in BetterTouchTool.
-                tap_code(KC_LGUI);
-                tap_code(KC_LGUI);
-                // Since not all apps seem to define a propper context menu, we try S(KC_F10) as
-                // well:
-                tap_code16(S(KC_F10));
-            }
-            break;
-    }
-    return true; // continue processing the keycode
-}
-
-enum zilpzalp_layers {
-    PUQ,
-    SYM,
-    NAV,
-    FCT
-};
-
-#define PUQ_MASK (1 << PUQ)
-#define SYM_MASK (1 << SYM)
-#define NAV_MASK (1 << NAV)
-#define FCT_MASK (1 << FCT)
-
 // This layout assumes that the OS layout is set to "German (no dead keys)"
 // We define `DE`-versions for symbols that do not match their US keyboard positions.
 // An underscore at the end of the symbol name indicates that it includes a modifier (preventing its
@@ -106,7 +73,47 @@ enum zilpzalp_layers {
 #define DE_UNDERSCORE_    S(DE_MINUS)        // _
 #define DE_DASH_          A(DE_MINUS)        // –
 
-/* naming scheme for #defines:
+// Utilities for defining combos:
+#define LAYER_COMBO(n, layer, a, b) \
+const uint16_t PROGMEM COMBO_ ## layer ## _ ## n[] = {layer ## _ ## a, layer ## _ ## b, COMBO_END}
+#define DEF_COMBO(layer, n, key_a, key_b) LAYER_COMBO(n, layer, key_a, key_b)
+
+// Macros:
+enum custom_keycodes {
+    MACRO_MENU = SAFE_RANGE
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Custom Key Codes (Macros):
+    switch (keycode) {
+        case MACRO_MENU:
+            if (record->event.pressed) {
+                // I have mapped double tapping the CMD key to show the context menu in BetterTouchTool.
+                tap_code(KC_LGUI);
+                tap_code(KC_LGUI);
+                // Since not all apps seem to define a propper context menu, we try S(KC_F10) as
+                // well:
+                tap_code16(S(KC_F10));
+            }
+            break;
+    }
+    return true; // continue processing the keycode
+}
+
+// Layers:
+enum zilpzalp_layers {
+    PUQ,
+    SYM,
+    NAV,
+    FCT
+};
+
+#define PUQ_MASK (1 << PUQ)
+#define SYM_MASK (1 << SYM)
+#define NAV_MASK (1 << NAV)
+#define FCT_MASK (1 << FCT)
+
+/* naming scheme for Key #defines:
        ┌────┬────┬────┐                     ┌────┬────┬────┐
        │ L7 │ L8 │ L9 ├────┐           ┌────┤ R7 │ R8 │ R9 │
        ├────┼────┼────┤ LA │           │ RA ├────┼────┼────┤
@@ -118,13 +125,6 @@ enum zilpzalp_layers {
                       └────┴────┘ └────┴────┘
 Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer.
 */
-
-#define LAYER_COMBO(l, L, a, b) \
-const uint16_t PROGMEM l ## _ ## a ## _ ## b[] = {L ## _ ## a, L ## _ ## b, COMBO_END}
-#define PUQ_COMBO(a, b, kc)  COMBO(LAYER_COMBO(puq, PUQ, a, b), kc)
-#define SYM_COMBO(a, b, kc)  COMBO(LAYER_COMBO(sym, SYM, a, b), kc)
-#define NAV_COMBO(a, b, kc)  COMBO(LAYER_COMBO(nav, NAV, a, b), kc)
-#define FCT_COMBO(a, b, kc)  COMBO(LAYER_COMBO(fct, FCT, a, b), kc)
 
 /* Layer PUQ:
 
@@ -186,20 +186,34 @@ const uint16_t PROGMEM l ## _ ## a ## _ ## b[] = {L ## _ ## a, L ## _ ## b, COMB
 #define PUQ_RS MT(MOD_LSFT, KC_SPACE)
 #define PUQ_RE MT(MOD_LGUI, KC_ENTER)
 
-#define PUQ_COMBO_01 PUQ_COMBO(L1, L2, DE_Z)
-#define PUQ_COMBO_02 PUQ_COMBO(L2, L3, DE_J)
-#define PUQ_COMBO_03 PUQ_COMBO(L4, L5, TT(NAV))
-#define PUQ_COMBO_04 PUQ_COMBO(L4, L6, TT(FCT))
-#define PUQ_COMBO_05 PUQ_COMBO(L5, L6, TT(SYM))
-#define PUQ_COMBO_06 PUQ_COMBO(L7, L8, DE_COMMA)
-#define PUQ_COMBO_07 PUQ_COMBO(L8, L9, KC_DELETE)
-#define PUQ_COMBO_08 PUQ_COMBO(R1, R2, DE_X)
-#define PUQ_COMBO_09 PUQ_COMBO(R2, R3, DE_K)
-#define PUQ_COMBO_10 PUQ_COMBO(R4, R5, TT(SYM))
-#define PUQ_COMBO_11 PUQ_COMBO(R4, R6, TT(FCT))
-#define PUQ_COMBO_12 PUQ_COMBO(R5, R6, TT(NAV))
-#define PUQ_COMBO_13 PUQ_COMBO(R7, R8, KC_BACKSPACE)
-#define PUQ_COMBO_14 PUQ_COMBO(R8, R9, DE_DOT)
+DEF_COMBO(PUQ, 01, L1, L2);
+#define COMBO_PUQ_01_ACTION DE_Z
+DEF_COMBO(PUQ, 02, L2, L3);
+#define COMBO_PUQ_02_ACTION DE_J
+DEF_COMBO(PUQ, 03, L4, L5);
+#define COMBO_PUQ_03_ACTION TT(NAV)
+DEF_COMBO(PUQ, 04, L4, L6);
+#define COMBO_PUQ_04_ACTION TT(FCT)
+DEF_COMBO(PUQ, 05, L5, L6);
+#define COMBO_PUQ_05_ACTION TT(SYM)
+DEF_COMBO(PUQ, 06, L7, L8);
+#define COMBO_PUQ_06_ACTION DE_COMMA
+DEF_COMBO(PUQ, 07, L8, L9);
+#define COMBO_PUQ_07_ACTION KC_DELETE
+DEF_COMBO(PUQ, 08, R1, R2);
+#define COMBO_PUQ_08_ACTION DE_X
+DEF_COMBO(PUQ, 09, R2, R3);
+#define COMBO_PUQ_09_ACTION DE_K
+DEF_COMBO(PUQ, 10, R4, R5);
+#define COMBO_PUQ_10_ACTION TT(SYM)
+DEF_COMBO(PUQ, 11, R4, R6);
+#define COMBO_PUQ_11_ACTION TT(FCT)
+DEF_COMBO(PUQ, 12, R5, R6);
+#define COMBO_PUQ_12_ACTION TT(NAV)
+DEF_COMBO(PUQ, 13, R7, R8);
+#define COMBO_PUQ_13_ACTION KC_BACKSPACE
+DEF_COMBO(PUQ, 14, R8, R9);
+#define COMBO_PUQ_14_ACTION DE_DOT
 
 /* Layer SYM:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -250,6 +264,25 @@ const uint16_t PROGMEM l ## _ ## a ## _ ## b[] = {L ## _ ## a, L ## _ ## b, COMB
 #define SYM_RS KC_SPACE
 #define SYM_RE KC_ENTER
 
+DEF_COMBO(SYM, 01, L1, L2);
+#define COMBO_SYM_01_ACTION DE_HASH
+DEF_COMBO(SYM, 02, L2, L3);
+#define COMBO_SYM_02_ACTION DE_CARET
+DEF_COMBO(SYM, 03, L4, L5);
+#define COMBO_SYM_03_ACTION TT(NAV)
+DEF_COMBO(SYM, 04, L8, L9);
+#define COMBO_SYM_04_ACTION KC_DELETE
+DEF_COMBO(SYM, 05, R1, R2);
+#define COMBO_SYM_05_ACTION DE_PLUS
+DEF_COMBO(SYM, 06, R2, R3);
+#define COMBO_SYM_06_ACTION DE_SEMICOLON_
+DEF_COMBO(SYM, 07, R5, R6);
+#define COMBO_SYM_07_ACTION TT(NAV)
+DEF_COMBO(SYM, 08, R7, R8);
+#define COMBO_SYM_08_ACTION KC_BACKSPACE
+DEF_COMBO(SYM, 09, R8, R9);
+#define COMBO_SYM_09_ACTION DE_AMPERSAND_
+
 /* Layer NAV:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
           │   ●┈┈┈⇞┈┈┈●   │       │                           │       │       │       │
@@ -272,32 +305,39 @@ const uint16_t PROGMEM l ## _ ## a ## _ ## b[] = {L ## _ ## a, L ## _ ## b, COMB
 
 #define NAV_LP G(KC_LEFT)
 #define NAV_L1 KC_TAB
-#define NAV_L2 MT(MOD_LCTL, KC_INSERT)
+#define NAV_L2 KC_INSERT
 #define NAV_L3 KC_ENTER
 #define NAV_L4 KC_LEFT
-#define NAV_L5 MT(MOD_LGUI, KC_DOWN)
-#define NAV_L6 MT(MOD_LALT, KC_RIGHT)
+#define NAV_L5 KC_DOWN
+#define NAV_L6 KC_RIGHT
 #define NAV_L7 KC_BACKSPACE
 #define NAV_L8 KC_UP
 #define NAV_L9 KC_DELETE
 #define NAV_LA KC_PAGE_DOWN
 #define NAV_LB G(KC_RIGHT)
 #define NAV_LS MT(MOD_LSFT, KC_SPACE)
-#define NAV_LE KC_ESCAPE
-#define NAV_RP KC_KP_PLUS
+#define NAV_LE MT(MOD_LGUI, KC_ESCAPE)
+#define NAV_RP MT(MOD_LALT, KC_KP_PLUS)
 #define NAV_R1 KC_KP_1
-#define NAV_R2 MT(MOD_LCTL, KC_KP_2)
+#define NAV_R2 KC_KP_2
 #define NAV_R3 KC_KP_3
-#define NAV_R4 MT(MOD_LALT, KC_KP_4)
-#define NAV_R5 MT(MOD_LGUI, KC_KP_5)
+#define NAV_R4 KC_KP_4
+#define NAV_R5 KC_KP_5
 #define NAV_R6 KC_KP_6
 #define NAV_R7 KC_KP_7
 #define NAV_R8 KC_KP_8
 #define NAV_R9 KC_KP_9
 #define NAV_RA KC_KP_ASTERISK
-#define NAV_RB KC_KP_SLASH
+#define NAV_RB MT(MOD_LCTL, KC_KP_SLASH)
 #define NAV_RS MT(MOD_LSFT, KC_KP_0)
-#define NAV_RE KC_ENTER
+#define NAV_RE MT(MOD_LGUI, KC_ENTER)
+
+DEF_COMBO(NAV, 01, L7, L8);
+#define COMBO_NAV_01_ACTION KC_PAGE_UP
+DEF_COMBO(NAV, 02, R1, R2);
+#define COMBO_NAV_02_ACTION KC_KP_DOT
+DEF_COMBO(NAV, 03, R2, R3);
+#define COMBO_NAV_03_ACTION KC_KP_MINUS
 
 /* Layer FCT:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -319,142 +359,34 @@ const uint16_t PROGMEM l ## _ ## a ## _ ## b[] = {L ## _ ## a, L ## _ ## b, COMB
                                └───────┴───────┘ └───────┴───────┘
 */
 
-#define FCT_LP KC_F12
-#define FCT_L1 XXXXXXX
-#define FCT_L2 XXXXXXX
-#define FCT_L3 XXXXXXX
-#define FCT_L4 XXXXXXX
-#define FCT_L5 XXXXXXX
-#define FCT_L6 XXXXXXX
-#define FCT_L7 XXXXXXX
-#define FCT_L8 XXXXXXX
-#define FCT_L9 XXXXXXX
+#define FCT_LP MT(MOD_LALT, KC_F12)
+#define FCT_L1 KC_F1
+#define FCT_L2 KC_F2
+#define FCT_L3 KC_F3
+#define FCT_L4 KC_F4
+#define FCT_L5 KC_F5
+#define FCT_L6 KC_F6
+#define FCT_L7 KC_F7
+#define FCT_L8 KC_F8
+#define FCT_L9 KC_F9
 #define FCT_LA KC_F10
-#define FCT_LB KC_F11
-#define FCT_LS KC_MS_BTN1
-#define FCT_LE KC_MS_BTN2
-#define FCT_RP MY_MENU
+#define FCT_LB MT(MOD_LCTL, KC_F11)
+#define FCT_LS MT(MOD_LSFT, KC_MS_BTN1)
+#define FCT_LE MT(MOD_LGUI, KC_MS_BTN2)
+#define FCT_RP MT(MOD_LALT, MACRO_MENU)
 #define FCT_R1 KC_BRIGHTNESS_UP
-#define FCT_R2 MT(MOD_LCTL, KC_F20) // mapped to `mic key` in BetterTouchTool
+#define FCT_R2 KC_F20 // mapped to `mic key` in BetterTouchTool
 #define FCT_R3 KC_BRIGHTNESS_DOWN
-#define FCT_R4 MT(MOD_LALT, KC_MEDIA_PREV_TRACK)
-#define FCT_R5 MT(MOD_LGUI, KC_MEDIA_PLAY_PAUSE)
+#define FCT_R4 KC_MEDIA_PREV_TRACK
+#define FCT_R5 KC_MEDIA_PLAY_PAUSE
 #define FCT_R6 KC_MEDIA_NEXT_TRACK
 #define FCT_R7 KC_AUDIO_VOL_DOWN
 #define FCT_R8 KC_AUDIO_MUTE
 #define FCT_R9 KC_AUDIO_VOL_UP
 #define FCT_RA XXXXXXX
-#define FCT_RB XXXXXXX
-#define FCT_RS KC_MS_BTN2
-#define FCT_RE KC_MS_BTN1
-
-// Combos:
-const uint16_t PROGMEM puq_l1_l4[] = {PUQ_L1, PUQ_L4, COMBO_END};
-const uint16_t PROGMEM puq_l3_l6[] = {PUQ_L3, PUQ_L6, COMBO_END};
-const uint16_t PROGMEM puq_l4_l5[] = {PUQ_L4, PUQ_L5, COMBO_END};
-const uint16_t PROGMEM puq_l4_l6[] = {PUQ_L5, PUQ_L6, COMBO_END};
-const uint16_t PROGMEM puq_l4_l7[] = {PUQ_L4, PUQ_L7, COMBO_END};
-const uint16_t PROGMEM puq_l6_l9[] = {PUQ_L6, PUQ_L9, COMBO_END};
-const uint16_t PROGMEM puq_r1_r4[] = {PUQ_R1, PUQ_R4, COMBO_END};
-const uint16_t PROGMEM puq_r1_r2[] = {PUQ_R1, PUQ_R2, COMBO_END};
-const uint16_t PROGMEM puq_r2_r3[] = {PUQ_R2, PUQ_R3, COMBO_END};
-const uint16_t PROGMEM puq_r3_r6[] = {PUQ_R3, PUQ_R6, COMBO_END};
-const uint16_t PROGMEM puq_r4_r5[] = {PUQ_R4, PUQ_R5, COMBO_END};
-const uint16_t PROGMEM puq_r4_r6[] = {PUQ_R4, PUQ_R6, COMBO_END};
-const uint16_t PROGMEM puq_r4_r7[] = {PUQ_R4, PUQ_R7, COMBO_END};
-const uint16_t PROGMEM puq_r5_r6[] = {PUQ_R5, PUQ_R6, COMBO_END};
-const uint16_t PROGMEM puq_r6_r9[] = {PUQ_R6, PUQ_R9, COMBO_END};
-
-const uint16_t PROGMEM neo3_l1_l4[] = {SYM_L1, SYM_L4, COMBO_END};
-const uint16_t PROGMEM neo3_l3_l6[] = {SYM_L3, SYM_L6, COMBO_END};
-const uint16_t PROGMEM neo3_r1_r4[] = {SYM_R1, SYM_R4, COMBO_END};
-const uint16_t PROGMEM neo3_r1_r2[] = {SYM_R1, SYM_R2, COMBO_END};
-const uint16_t PROGMEM neo3_r2_r3[] = {SYM_R2, SYM_R3, COMBO_END};
-const uint16_t PROGMEM neo3_r3_r6[] = {SYM_R3, SYM_R6, COMBO_END};
-const uint16_t PROGMEM neo3_r6_r9[] = {SYM_R6, SYM_R9, COMBO_END};
-
-const uint16_t PROGMEM neo4_l4_l7[] = {NAV_L4, NAV_L7, COMBO_END};
-const uint16_t PROGMEM neo4_r1_r2[] = {NAV_R1, NAV_R2, COMBO_END};
-const uint16_t PROGMEM neo4_r2_r3[] = {NAV_R2, NAV_R3, COMBO_END};
-
-combo_t key_combos[] = {
-    COMBO(puq_l1_l4, DE_Z),
-    COMBO(puq_l3_l6, DE_J),
-    COMBO(puq_l4_l5, MO(SYM)),
-    COMBO(puq_l4_l6, MO(NAV)),
-    COMBO(puq_l4_l7, DE_F),
-    COMBO(puq_l6_l9, DE_P),
-    COMBO(puq_r1_r4, DE_X),
-    COMBO(puq_r3_r6, DE_K),
-    COMBO(puq_r4_r6, MO(NAV)),
-    COMBO(puq_r4_r7, DE_F),
-    COMBO(puq_r5_r6, MO(SYM)),
-    COMBO(puq_r6_r9, DE_P),
-
-    COMBO(neo3_l1_l4, DE_HASH),
-    COMBO(neo3_l3_l6, DE_BACKQUOTE_),
-    COMBO(neo3_r1_r4, DE_PLUS),
-    COMBO(neo3_r3_r6, DE_SEMICOLON_),
-    COMBO(neo3_r6_r9, DE_AMPERSAND_),
-
-    COMBO(neo4_l4_l7, KC_PAGE_UP),
-
-    // BACKSPACE & DELETE on (almost) all layers:
-    COMBO(puq_r1_r2, KC_BACKSPACE),
-    COMBO(puq_r2_r3, KC_DELETE),
-    COMBO(neo3_r1_r2, KC_BACKSPACE),
-    COMBO(neo3_r2_r3, KC_DELETE),
-    COMBO(neo4_r1_r2, KC_BACKSPACE),
-    COMBO(neo4_r2_r3, KC_DELETE),
-};
-
-uint16_t get_combo_term(uint16_t _index, combo_t *combo) {
-    switch (combo->keycode) {
-        case KC_BACKSPACE:
-        case KC_DELETE:
-        case MO(SYM):
-        case MO(NAV):
-            // these combos are on the home row and must have an extremely short TERM
-            return 20;
-    }
-    return COMBO_TERM;
-}
-
-bool get_combo_must_hold(uint16_t _index, combo_t *combo) {
-    switch (combo->keycode) {
-        case MO(SYM):
-        case MO(NAV):
-            return true;
-        default:
-            return false;
-    }
-}
-
-bool get_combo_must_tap(uint16_t _index, combo_t *combo) {
-    switch (combo->keycode) {
-        case MO(SYM):
-        case MO(NAV):
-            return false;
-        default:
-            return true;
-    }
-/*
-    // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be
-    // tap-only, this is for you:
-    uint16_t key;
-    uint8_t i = 0;
-    while ((key = pgm_read_word(&combo->keys[i])) != COMBO_END) {
-        switch (key) {
-            case QK_MOD_TAP...QK_MOD_TAP_MAX:
-            case QK_LAYER_TAP...QK_LAYER_TAP_MAX:
-            case QK_MOMENTARY...QK_MOMENTARY_MAX:
-                return true;
-        }
-        i += 1;
-    }
-    return false;
-*/
-}
+#define FCT_RB KC_LCTL
+#define FCT_RS MT(MOD_LSFT, KC_MS_BTN2)
+#define FCT_RE MT(MOD_LGUI, KC_MS_BTN1)
 
 // Key Overrides:
 const key_override_t shift_comma_is_dash = ko_make_with_layers_and_negmods(
@@ -507,5 +439,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               FCT_L1, FCT_L2, FCT_L3,                         FCT_R1, FCT_R2, FCT_R3,
                                   FCT_LS, FCT_LE,  FCT_RE, FCT_RS
     )
+};
+
+// Combos:
+combo_t key_combos[] = {
+    COMBO(COMBO_PUQ_01, COMBO_PUQ_01_ACTION),
+    COMBO(COMBO_PUQ_02, COMBO_PUQ_02_ACTION),
+    COMBO(COMBO_PUQ_03, COMBO_PUQ_03_ACTION),
+    COMBO(COMBO_PUQ_04, COMBO_PUQ_04_ACTION),
+    COMBO(COMBO_PUQ_05, COMBO_PUQ_05_ACTION),
+    COMBO(COMBO_PUQ_06, COMBO_PUQ_06_ACTION),
+    COMBO(COMBO_PUQ_07, COMBO_PUQ_07_ACTION),
+    COMBO(COMBO_PUQ_08, COMBO_PUQ_08_ACTION),
+    COMBO(COMBO_PUQ_09, COMBO_PUQ_09_ACTION),
+    COMBO(COMBO_PUQ_10, COMBO_PUQ_10_ACTION),
+    COMBO(COMBO_PUQ_11, COMBO_PUQ_11_ACTION),
+    COMBO(COMBO_PUQ_12, COMBO_PUQ_12_ACTION),
+    COMBO(COMBO_PUQ_13, COMBO_PUQ_13_ACTION),
+    COMBO(COMBO_PUQ_14, COMBO_PUQ_14_ACTION),
+
+    COMBO(COMBO_SYM_01, COMBO_SYM_01_ACTION),
+    COMBO(COMBO_SYM_02, COMBO_SYM_02_ACTION),
+    COMBO(COMBO_SYM_03, COMBO_SYM_03_ACTION),
+    COMBO(COMBO_SYM_04, COMBO_SYM_04_ACTION),
+    COMBO(COMBO_SYM_05, COMBO_SYM_05_ACTION),
+    COMBO(COMBO_SYM_06, COMBO_SYM_06_ACTION),
+    COMBO(COMBO_SYM_07, COMBO_SYM_07_ACTION),
+    COMBO(COMBO_SYM_08, COMBO_SYM_08_ACTION),
+    COMBO(COMBO_SYM_09, COMBO_SYM_09_ACTION),
+
+    COMBO(COMBO_NAV_01, COMBO_NAV_01_ACTION),
+    COMBO(COMBO_NAV_02, COMBO_NAV_02_ACTION),
+    COMBO(COMBO_NAV_03, COMBO_NAV_03_ACTION),
 };
 
