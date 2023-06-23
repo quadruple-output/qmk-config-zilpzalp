@@ -388,6 +388,19 @@ DEF_COMBO(NAV, 02, R2, R3);
 #define FCT_RS MT(MOD_LSFT, KC_MS_BTN2)
 #define FCT_RE MT(MOD_LGUI, KC_MS_BTN1)
 
+// We want HOLD_ON_OTHER_KEY_PRESS for all combos, but not for the single-finger CTRL and ALT mod-taps:
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case PUQ_LP:
+        case PUQ_RP:
+        case PUQ_LB:
+        case PUQ_RB:
+            return false;
+        default:
+            return true;
+    }
+}
+
 // Key Overrides:
 const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_comma_is_dash,
