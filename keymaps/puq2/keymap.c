@@ -216,6 +216,21 @@ DEF_COMBO(PUQ, 13, R7, R8);
 DEF_COMBO(PUQ, 14, R8, R9);
 #define COMBO_PUQ_14_ACTION DE_DOT
 
+const key_override_t shift_comma_is_dash = ko_make_with_layers_and_negmods(
+        MOD_MASK_SHIFT,
+        DE_COMMA,
+        DE_DASH_,
+        PUQ_MASK, // only on PUQ layer
+        MOD_MASK_CAG // not when combined with any other modifier
+      );
+const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
+        MOD_MASK_SHIFT,
+        DE_DOT,
+        DE_BULLET_,
+        PUQ_MASK, // only on PUQ layer
+        MOD_MASK_CAG // not when combined with any other modifier
+      );
+
 /* Layer SYM:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
           │       │   ●┈┈┈⌦┈┈┈●   │                           │   ●┈┈┈⌫┈┈┈◐┈┈┈&┈┈┈○   │
@@ -388,21 +403,6 @@ DEF_COMBO(NAV, 02, R2, R3);
 #define FCT_RE MT(MOD_LGUI, KC_MS_BTN1)
 
 // Key Overrides:
-const key_override_t shift_comma_is_dash = ko_make_with_layers_and_negmods(
-        MOD_MASK_SHIFT,
-        PUQ_R7,
-        DE_DASH_,
-        PUQ_MASK, // only on PUQ layer
-        MOD_MASK_CAG // not when combined with any other modifier
-      );
-const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
-        MOD_MASK_SHIFT,
-        PUQ_R2,
-        DE_BULLET_,
-        PUQ_MASK, // only on PUQ layer
-        MOD_MASK_CAG // not when combined with any other modifier
-      );
-
 const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_comma_is_dash,
     &shift_dot_is_bullet,
