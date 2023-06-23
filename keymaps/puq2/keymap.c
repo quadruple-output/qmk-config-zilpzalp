@@ -1,3 +1,4 @@
+#include "keycodes.h"
 #include QMK_KEYBOARD_H
 #include "zilpzalp.h"
 #include "print.h"
@@ -285,10 +286,10 @@ DEF_COMBO(SYM, 09, R8, R9);
 
 /* Layer NAV:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
-          │   ●┈┈┈⇞┈┈┈●   │       │                           │       │       │       │
-          │   ⌫   │   ↑   │   ⌦   ├───────┐           ┌───────┤   7   │   8   │   9   │
+          │       │       │       │                           │       │       │       │
+          │   ⇞   │   ↑   │   ⇟   ├───────┐           ┌───────┤   7   │   8   │   9   │
           │       │       │       │       │           │       │       │       │       │
-          ├───────┼───────┼───────┤   ⇟   │           │   *   ├───────┼───────┼───────┤
+          ├───────┼───────┼───────┤       │           │   *   ├───────┼───────┼───────┤
           │       │       │       │       │           │       │       │       │       │
           │   ←   │   ↓   │   →   ├───────┤           ├───────┤   4   │   5   │   6   │
           │       │       │       │       │           │       │       │       │       │
@@ -310,10 +311,10 @@ DEF_COMBO(SYM, 09, R8, R9);
 #define NAV_L4 KC_LEFT
 #define NAV_L5 KC_DOWN
 #define NAV_L6 KC_RIGHT
-#define NAV_L7 KC_BACKSPACE
+#define NAV_L7 KC_PAGE_UP
 #define NAV_L8 KC_UP
-#define NAV_L9 KC_DELETE
-#define NAV_LA KC_PAGE_DOWN
+#define NAV_L9 KC_PAGE_DOWN
+#define NAV_LA XXXXXXX
 #define NAV_LB G(KC_RIGHT)
 #define NAV_LS MT(MOD_LSFT, KC_SPACE)
 #define NAV_LE MT(MOD_LGUI, KC_ESCAPE)
@@ -332,12 +333,10 @@ DEF_COMBO(SYM, 09, R8, R9);
 #define NAV_RS MT(MOD_LSFT, KC_KP_0)
 #define NAV_RE MT(MOD_LGUI, KC_ENTER)
 
-DEF_COMBO(NAV, 01, L7, L8);
-#define COMBO_NAV_01_ACTION KC_PAGE_UP
-DEF_COMBO(NAV, 02, R1, R2);
-#define COMBO_NAV_02_ACTION KC_KP_DOT
-DEF_COMBO(NAV, 03, R2, R3);
-#define COMBO_NAV_03_ACTION KC_KP_MINUS
+DEF_COMBO(NAV, 01, R1, R2);
+#define COMBO_NAV_01_ACTION KC_KP_DOT
+DEF_COMBO(NAV, 02, R2, R3);
+#define COMBO_NAV_02_ACTION KC_KP_MINUS
 
 /* Layer FCT:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -470,6 +469,5 @@ combo_t key_combos[] = {
 
     COMBO(COMBO_NAV_01, COMBO_NAV_01_ACTION),
     COMBO(COMBO_NAV_02, COMBO_NAV_02_ACTION),
-    COMBO(COMBO_NAV_03, COMBO_NAV_03_ACTION),
 };
 
