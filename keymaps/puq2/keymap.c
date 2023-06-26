@@ -352,7 +352,7 @@ DEF_COMBO(NAV, 02, R2, R3);
           │   F7  │   F8  │   F9  ├───────┐           ┌───────┤   🔉  │   🔇  │   🔊  │
           │       │       │       │       │           │       │       │       │       │
           ├───────┼───────┼───────┤  F10  │           │       ├───────┼───────┼───────┤
-          │       │       │       │       │           │       │       │       │       │
+          │       │       │       │ cag   │           │ cag   │       │       │       │
           │   F4  │   F5  │   F6  ├───────┤           ├───────┤   ⏮   │   ⏯   │   ⏭   │
           │       │       │       │       │           │       │       │       │       │
   ┌───────┼───────┼───────┼───────┤  F11  │           │       ├───────┼───────┼───────┼───────┐
@@ -376,7 +376,7 @@ DEF_COMBO(NAV, 02, R2, R3);
 #define FCT_L7 KC_F7
 #define FCT_L8 KC_F8
 #define FCT_L9 KC_F9
-#define FCT_LA KC_F10
+#define FCT_LA MT(MOD_LCTL|MOD_LALT|MOD_LGUI, KC_F10)
 #define FCT_LB MT(MOD_LCTL, KC_F11)
 #define FCT_LS MT(MOD_LSFT, KC_MS_BTN1)
 #define FCT_LE MT(MOD_LGUI, KC_MS_BTN2)
@@ -390,7 +390,7 @@ DEF_COMBO(NAV, 02, R2, R3);
 #define FCT_R7 KC_AUDIO_VOL_DOWN
 #define FCT_R8 KC_AUDIO_MUTE
 #define FCT_R9 KC_AUDIO_VOL_UP
-#define FCT_RA XXXXXXX
+#define FCT_RA C(A(KC_LGUI))
 #define FCT_RB KC_LCTL
 #define FCT_RS MT(MOD_LSFT, KC_MS_BTN2)
 #define FCT_RE MT(MOD_LGUI, KC_MS_BTN1)
