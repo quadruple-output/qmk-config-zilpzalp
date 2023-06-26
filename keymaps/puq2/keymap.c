@@ -393,6 +393,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case PUQ_LP:
         case PUQ_RP:
+        case PUQ_LA:
+        case PUQ_RA:
         case PUQ_LB:
         case PUQ_RB:
             return false;
