@@ -149,7 +149,7 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
           │   ●┈┈┈┈┈┈FCT┈┈┈┈┈┈●   │       │           │       │   ●┈┈┈┈┈┈FCT┈┈┈┈┈┈●   │
   ┌───────┼───────┼───────┼───────┤   D   │           │   O   ├───────┼───────┼───────┼───────┐
   │       │   ●┈┈┈Z┈┈┈◐┈┈┈J┈┈┈○   │ c     │           │ c     │   ●┈┈┈X┈┈┈◐┈┈┈K┈┈┈○   │       │
-  │   S   │   B   │   W   │   V   ├───────┘           └───────┤   -   │   P   │   Y   │   H   │
+  │   S   │   B   │   W   │   V   ├───────┘           └───────┤   _   │   P   │   Y   │   H   │
   │ a     │       │       │       │                           │       │       │       │ a     │
   └───────┴───────┴───────┴────┬──┴────┬───────┐ ┌───────┬────┴──┬────┴───────┴───────┴───────┘
                                │       │       │ │       │       │
@@ -173,7 +173,7 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
 #define PUQ_LS MT(MOD_LSFT, KC_SPACE)
 #define PUQ_LE MT(MOD_LGUI, KC_ESCAPE)
 #define PUQ_RP MT(MOD_LALT, DE_H)
-#define PUQ_R1 DE_MINUS
+#define PUQ_R1 DE_UNDERSCORE_
 #define PUQ_R2 DE_P
 #define PUQ_R3 DE_Y
 #define PUQ_R4 DE_A
@@ -227,6 +227,13 @@ const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
         MOD_MASK_SHIFT,
         DE_DOT,
         DE_BULLET_,
+        PUQ_MASK, // only on PUQ layer
+        MOD_MASK_CAG // not when combined with any other modifier
+      );
+const key_override_t shift_underscore_is_minus = ko_make_with_layers_and_negmods(
+        MOD_MASK_SHIFT,
+        DE_UNDERSCORE_,
+        DE_MINUS,
         PUQ_MASK, // only on PUQ layer
         MOD_MASK_CAG // not when combined with any other modifier
       );
@@ -407,6 +414,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_comma_is_dash,
     &shift_dot_is_bullet,
+    &shift_underscore_is_minus,
     NULL // terminator
 };
 
