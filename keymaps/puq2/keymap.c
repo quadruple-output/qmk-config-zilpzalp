@@ -54,15 +54,15 @@ Example: PUQ_LP refers to the binding for the left-hand pinky on the "PUQ" layer
          SHFT).
 
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
-          │   ●┈┈┈,┈┈┈◐┈┈┈⌦┈┈┈○   │                           │   ●┈┈┈⌫┈┈┈◐┈┈┈.┈┈┈○   │
+          │   ●┈┈ , ┈┈◐┈┈ ⌦ ┈┈○   │                           │   ●┈┈ ⌫ ┈┈◐┈┈ . ┈┈○   │
           │   M   │   L   │   C   ├───────┐           ┌───────┤   F   │   ⎄   │   U   │
           │       │       │       │       │           │       │       │       │       │
           ├───────┼───────┼───────┤   G   │           │   Q   ├───────┼───────┼───────┤
           │   ●┈┈NAV┈┈◐┈┈SYM┈┈○   │ cag   │           │ cag   │   ●┈┈SYM┈┈◐┈┈NAV┈┈○   │
           │   N   │   R   │   T   ├───────┤           ├───────┤   A   │   E   │   I   │
-          │   ●┈┈┈┈┈┈FCT┈┈┈┈┈┈●   │       │           │       │   ●┈┈┈┈┈┈FCT┈┈┈┈┈┈●   │
+          │   ●┈┈┈┈┈ FCT ┈┈┈┈┈●   │       │           │       │   ●┈┈┈┈┈ FCT ┈┈┈┈┈●   │
   ┌───────┼───────┼───────┼───────┤   D   │           │   O   ├───────┼───────┼───────┼───────┐
-  │       │   ●┈┈┈Z┈┈┈◐┈┈┈J┈┈┈○   │ c     │           │ c     │   ●┈┈┈X┈┈┈◐┈┈┈K┈┈┈○   │       │
+  │       │   ●┈┈ Z ┈┈◐┈┈ J ┈┈○   │ c     │           │ c     │   ●┈┈ X ┈┈◐┈┈ K ┈┈○   │       │
   │   S   │   B   │   W   │   V   ├───────┘           └───────┤   _   │   P   │   Y   │   H   │
   │ a     │       │       │       │                           │       │       │       │ a     │
   └───────┴───────┴───────┴────┬──┴────┬───────┐ ┌───────┬────┴──┬────┴───────┴───────┴───────┘
@@ -144,22 +144,15 @@ const key_override_t shift_dot_is_bullet = ko_make_with_layers_and_negmods(
         PUQ_MASK, // only on PUQ layer
         MOD_MASK_CAG // not when combined with any other modifier
       );
-const key_override_t shift_underscore_is_minus = ko_make_with_layers_and_negmods(
-        MOD_MASK_SHIFT,
-        DE_UNDS,
-        DE_MINS,
-        PUQ_MASK, // only on PUQ layer
-        MOD_MASK_CAG // not when combined with any other modifier
-      );
 
 /* Layer SYM:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
-          │       │   ●┈┈┈⌦┈┈┈●   │                           │   ●┈┈┈⌫┈┈┈●   │       │
-          │   …   │   [   │   ]   ├───────┐           ┌───────┤   <   │   >   │   =   │
+          │   ○┈┈ … ┈┈◑┈┈ ⌦ ┈┈●   │                           │   ●┈┈ ⌫ ┈┈●   │       │
+          │   &   │   [   │   ]   ├───────┐           ┌───────┤   <   │   >   │   =   │
           │       │       │       │       │           │       │       │       │       │
           ├───────┼───────┼───────┤   ^   │           │   !   ├───────┼───────┼───────┤
           │       │       │       │       │           │       │       │       │       │
-          │   /   │   {   │   }   ├───────┤           ├───────┤   (   │   )   │   &   │
+          │   /   │   {   │   }   ├───────┤           ├───────┤   (   │   )   │   -   │
           │       │       │       │       │           │       │       │       │       │
   ┌───────┼───────┼───────┼───────┤   *   │           │   ?   ├───────┼───────┼───────┼───────┐
   │       │       │       │       │       │           │       │       │       │       │       │
@@ -179,7 +172,7 @@ const key_override_t shift_underscore_is_minus = ko_make_with_layers_and_negmods
 #define SYM_L4 DE_SLSH
 #define SYM_L5 DE_LCBR
 #define SYM_L6 DE_RCBR
-#define SYM_L7 DE_ELLP
+#define SYM_L7 DE_AMPR
 #define SYM_L8 DE_LBRC
 #define SYM_L9 DE_RBRC
 #define SYM_LA DE_CIRC
@@ -192,7 +185,7 @@ const key_override_t shift_underscore_is_minus = ko_make_with_layers_and_negmods
 #define SYM_R3 DE_QUOT
 #define SYM_R4 DE_LPRN
 #define SYM_R5 DE_RPRN
-#define SYM_R6 DE_AMPR
+#define SYM_R6 DE_MINS
 #define SYM_R7 DE_LABK
 #define SYM_R8 DE_RABK
 #define SYM_R9 DE_EQL
@@ -201,10 +194,12 @@ const key_override_t shift_underscore_is_minus = ko_make_with_layers_and_negmods
 #define SYM_RS DE_SCLN
 #define SYM_RE DE_PLUS
 
-DEF_COMBO(SYM, 01, L8, L9);
-#define COMBO_SYM_01_ACTION KC_DELETE
-DEF_COMBO(SYM, 02, R7, R8);
-#define COMBO_SYM_02_ACTION KC_BACKSPACE
+DEF_COMBO(SYM, 01, L7, L8);
+#define COMBO_SYM_01_ACTION DE_ELLP
+DEF_COMBO(SYM, 02, L8, L9);
+#define COMBO_SYM_02_ACTION KC_DELETE
+DEF_COMBO(SYM, 03, R7, R8);
+#define COMBO_SYM_03_ACTION KC_BACKSPACE
 
 /* Layer NAV:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -346,7 +341,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_comma_is_dash,
     &shift_dot_is_bullet,
-    &shift_underscore_is_minus,
     NULL // terminator
 };
 
@@ -400,6 +394,7 @@ combo_t key_combos[] = {
 
     COMBO(COMBO_SYM_01, COMBO_SYM_01_ACTION),
     COMBO(COMBO_SYM_02, COMBO_SYM_02_ACTION),
+    COMBO(COMBO_SYM_03, COMBO_SYM_03_ACTION),
 
     COMBO(COMBO_NAV_01, COMBO_NAV_01_ACTION),
     COMBO(COMBO_NAV_02, COMBO_NAV_02_ACTION),
