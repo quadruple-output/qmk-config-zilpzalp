@@ -1,4 +1,3 @@
-#include "action.h"
 #include "keycodes.h"
 #include QMK_KEYBOARD_H
 #include "zilpzalp.h"
@@ -101,41 +100,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // For ANSI and ISO keycodes see https://docs.qmk.fm/#/faq_keymap?id=what-are-the-default-keycodes
     switch (keycode) {
         case MY_TOGGLE_ANSI:
-            if (record->event.pressed) {
-                ansi_mode = !ansi_mode;
-                clear_keyboard();
-                if (ansi_mode) {
-                    SEND_STRING("ANSI");
-                } else {
-                    SEND_STRING("ISO");
-                }
+            ansi_mode = !ansi_mode;
+            if (ansi_mode) {
+                SEND_STRING("ANSI");
+            } else {
+                SEND_STRING("ISO");
             }
             break;
         case MY_LESS_THAN:
-            if (record->event.pressed) {
-                if (ansi_mode) {
-                    tap_code16(KC_GRAVE);
-                } else {
-                    tap_code16(KC_NONUS_BACKSLASH);
-                }
+            if (ansi_mode) {
+                tap_code16(KC_GRAVE);
+            } else {
+                tap_code16(KC_NONUS_BACKSLASH);
             }
             break;
         case MY_HASH:
-            if (record->event.pressed) {
-                if (ansi_mode) {
-                    tap_code16(KC_BACKSLASH);
-                } else {
-                    tap_code16(KC_NONUS_HASH);
-                }
+            if (ansi_mode) {
+                tap_code16(KC_BACKSLASH);
+            } else {
+                tap_code16(KC_NONUS_HASH);
             }
             break;
         case MY_CARET_:
-            if (record->event.pressed) {
-                if (ansi_mode) {
-                    tap_code16(G(S(KC_BACKSLASH)));
-                } else {
-                    tap_code16(KC_GRAVE);
-                }
+            if (ansi_mode) {
+                tap_code16(G(S(KC_BACKSLASH)));
+            } else {
+                tap_code16(KC_GRAVE);
             }
             break;
         case MACRO_MENU:
