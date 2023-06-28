@@ -3,22 +3,11 @@
 #include "zilpzalp.h"
 #include "print.h"
 
-enum custom_keycodes {
-    // Toggles between ANSI and ISO mode:
-    MY_TOGGLE_ANSI = SAFE_RANGE,
-    // These codes behave differently, depending on ANSI/ISO mode
-    MY_LESS_THAN,
-    MY_HASH,
-    MY_CARET_,
-    // Macros:
-    MACRO_MENU
-};
-
 // This layout assumes that the OS layout is set to "German (no dead keys)"
 // We define `DE`-versions for symbols that do not match their US keyboard positions.
 // An underscore at the end of the symbol name indicates that it includes a modifier (preventing its
 // use in some QMK functions like LT or MT).
-#define DE_CARET_         MY_CARET_          // ^
+#define DE_CARET          KC_GRAVE           // ^
 #define DE_EXCLAMATION_   S(KC_1)            // !
 #define DE_DOUBLE_QUOTE_  S(KC_2)            // "
 #define DE_DOLLAR_        S(KC_4)            // $
@@ -64,9 +53,9 @@ enum custom_keycodes {
 #define DE_AT_            A(DE_L)            // @
 #define DE_OUML           KC_SEMICOLON       // ö
 #define DE_AUML           KC_QUOTE           // ä
-#define DE_HASH           MY_HASH,           // #
-#define DE_QUOTE_         S(DE_HASH)         // #
-#define DE_LESS_THAN      MY_LESS_THAN       // <
+#define DE_HASH           KC_BACKSLASH       // #
+#define DE_QUOTE_         S(DE_HASH)         // '
+#define DE_LESS_THAN      KC_NONUS_BACKSLASH // <
 #define DE_GREATER_THAN_  S(DE_LESS_THAN)    // >
 #define DE_Y              KC_Z               // y
 #define DE_X              KC_X               // x
@@ -90,44 +79,14 @@ enum custom_keycodes {
 const uint16_t PROGMEM COMBO_ ## layer ## _ ## n[] = {layer ## _ ## a, layer ## _ ## b, COMBO_END}
 #define DEF_COMBO(layer, n, key_a, key_b) LAYER_COMBO(n, layer, key_a, key_b)
 
-static bool ansi_mode;
-
-void keyboard_post_init_user(void) {
-    ansi_mode = true;
-}
+// Macros:
+enum custom_keycodes {
+    MACRO_MENU = SAFE_RANGE
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // For ANSI and ISO keycodes see https://docs.qmk.fm/#/faq_keymap?id=what-are-the-default-keycodes
+    // Custom Key Codes (Macros):
     switch (keycode) {
-        case MY_TOGGLE_ANSI:
-            ansi_mode = !ansi_mode;
-            if (ansi_mode) {
-                SEND_STRING("ANSI");
-            } else {
-                SEND_STRING("ISO");
-            }
-            break;
-        case MY_LESS_THAN:
-            if (ansi_mode) {
-                tap_code16(KC_GRAVE);
-            } else {
-                tap_code16(KC_NONUS_BACKSLASH);
-            }
-            break;
-        case MY_HASH:
-            if (ansi_mode) {
-                tap_code16(KC_BACKSLASH);
-            } else {
-                tap_code16(KC_NONUS_HASH);
-            }
-            break;
-        case MY_CARET_:
-            if (ansi_mode) {
-                tap_code16(G(S(KC_BACKSLASH)));
-            } else {
-                tap_code16(KC_GRAVE);
-            }
-            break;
         case MACRO_MENU:
             if (record->event.pressed) {
                 // I have mapped double tapping the CMD key to show the context menu in BetterTouchTool.
@@ -309,7 +268,7 @@ const key_override_t shift_underscore_is_minus = ko_make_with_layers_and_negmods
 #define SYM_L7 DE_ELLIPSIS_
 #define SYM_L8 DE_LEFT_BRACKET_
 #define SYM_L9 DE_RIGHT_BRACKET_
-#define SYM_LA DE_CARET_
+#define SYM_LA DE_CARET
 #define SYM_LB DE_ASTERISK_
 #define SYM_LS DE_HASH
 #define SYM_LE DE_BACKQUOTE_
@@ -391,8 +350,8 @@ DEF_COMBO(NAV, 02, R2, R3);
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
           │       │       │       │                           │       │       │       │
           │   F7  │   F8  │   F9  ├───────┐           ┌───────┤   🔉  │   🔇  │   🔊  │
-          │       │       │       │       │           │ ISO/  │       │       │       │
-          ├───────┼───────┼───────┤  F10  │           │  ANSI ├───────┼───────┼───────┤
+          │       │       │       │       │           │       │       │       │       │
+          ├───────┼───────┼───────┤  F10  │           │       ├───────┼───────┼───────┤
           │       │       │       │ cag   │           │ cag   │       │       │       │
           │   F4  │   F5  │   F6  ├───────┤           ├───────┤   ⏮   │   ⏯   │   ⏭   │
           │       │       │       │       │           │       │       │       │       │
@@ -431,7 +390,7 @@ DEF_COMBO(NAV, 02, R2, R3);
 #define FCT_R7 KC_AUDIO_VOL_DOWN
 #define FCT_R8 KC_AUDIO_MUTE
 #define FCT_R9 KC_AUDIO_VOL_UP
-#define FCT_RA MT(MOD_LCTL|MOD_LALT|MOD_LGUI, MY_TOGGLE_ANSI)
+#define FCT_RA C(A(KC_LGUI))
 #define FCT_RB KC_LCTL
 #define FCT_RS MT(MOD_LSFT, KC_MS_BTN2)
 #define FCT_RE MT(MOD_LGUI, KC_MS_BTN1)
