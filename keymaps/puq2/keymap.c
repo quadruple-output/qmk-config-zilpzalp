@@ -64,7 +64,7 @@ enum custom_keycodes {
 #define DE_AT_            A(DE_L)            // @
 #define DE_OUML           KC_SEMICOLON       // ö
 #define DE_AUML           KC_QUOTE           // ä
-#define DE_HASH           MY_HASH            // #
+#define DE_HASH           MY_HASH,           // #
 #define DE_QUOTE_         S(DE_HASH)         // #
 #define DE_LESS_THAN      MY_LESS_THAN       // <
 #define DE_GREATER_THAN_  S(DE_LESS_THAN)    // >
