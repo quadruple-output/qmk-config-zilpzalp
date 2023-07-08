@@ -236,18 +236,21 @@ DEF_COMBO(SYM, 03, R7, R8);
 #define NAV_LS MT(MOD_LSFT, KC_SPACE)
 #define NAV_LE MT(MOD_LGUI, KC_ESCAPE)
 #define NAV_RP MT(MOD_LALT, KC_KP_PLUS)
-#define NAV_R1 KC_KP_1
-#define NAV_R2 KC_KP_2
-#define NAV_R3 KC_KP_3
-#define NAV_R4 KC_KP_4
-#define NAV_R5 KC_KP_5
-#define NAV_R6 KC_KP_6
-#define NAV_R7 KC_KP_7
-#define NAV_R8 KC_KP_8
-#define NAV_R9 KC_KP_9
+// We don't use the keypad numbers (KC_KP_...) here, because the normal number keys are more
+// universal. Some apps may have special semantics for keypad numbers, and bindings in
+// DefaultKeyBindings.dict are based on the normal numbers, as well.
+#define NAV_R1 KC_1
+#define NAV_R2 KC_2
+#define NAV_R3 KC_3
+#define NAV_R4 KC_4
+#define NAV_R5 KC_5
+#define NAV_R6 KC_6
+#define NAV_R7 KC_7
+#define NAV_R8 KC_8
+#define NAV_R9 KC_9
 #define NAV_RA KC_KP_ASTERISK
 #define NAV_RB MT(MOD_LCTL, KC_KP_SLASH)
-#define NAV_RS MT(MOD_LSFT, KC_KP_0)
+#define NAV_RS MT(MOD_LSFT, KC_0)
 #define NAV_RE MT(MOD_LGUI, KC_ENTER)
 
 DEF_COMBO(NAV, 01, R1, R2);
