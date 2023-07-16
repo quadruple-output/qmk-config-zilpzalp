@@ -1,6 +1,6 @@
 #pragma once
 
-// #define COMBO_TERM 30 // default: 50
+#define COMBO_TERM 40 // default: 50
 // #define COMBO_MUST_TAP_PER_COMBO
 
 #define TAPPING_TERM 200 // default: 200
