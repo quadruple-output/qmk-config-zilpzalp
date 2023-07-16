@@ -204,7 +204,7 @@ DEF_COMBO(SYM, 03, R7, R8);
 
 /* Layer NAV:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
-          │       │       │       │                           │       │       │       │
+          │   ○┈┈ ⌫ ┈┈◑┈┈ ⌦ ┈┈●   │                           │   ●┈┈ ⌫ ┈┈●   │       │
           │   ⇞   │   ↑   │   ⇟   ├───────┐           ┌───────┤   7   │   8   │   9   │
           │       │       │       │       │           │       │       │       │       │
           ├───────┼───────┼───────┤       │           │   *   ├───────┼───────┼───────┤
@@ -254,10 +254,16 @@ DEF_COMBO(SYM, 03, R7, R8);
 #define NAV_RS MT(MOD_LSFT, KC_0)
 #define NAV_RE MT(MOD_LGUI, KC_ENTER)
 
-DEF_COMBO(NAV, 01, R1, R2);
-#define COMBO_NAV_01_ACTION KC_KP_DOT
-DEF_COMBO(NAV, 02, R2, R3);
-#define COMBO_NAV_02_ACTION KC_KP_MINUS
+DEF_COMBO(NAV, 01, L7, L8);
+#define COMBO_NAV_01_ACTION KC_BACKSPACE
+DEF_COMBO(NAV, 02, L8, L9);
+#define COMBO_NAV_02_ACTION KC_DELETE
+DEF_COMBO(NAV, 03, R1, R2);
+#define COMBO_NAV_03_ACTION KC_KP_DOT
+DEF_COMBO(NAV, 04, R2, R3);
+#define COMBO_NAV_04_ACTION KC_KP_MINUS
+DEF_COMBO(NAV, 05, R7, R8);
+#define COMBO_NAV_05_ACTION KC_BACKSPACE
 
 /* Layer FCT:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -402,5 +408,8 @@ combo_t key_combos[] = {
 
     COMBO(COMBO_NAV_01, COMBO_NAV_01_ACTION),
     COMBO(COMBO_NAV_02, COMBO_NAV_02_ACTION),
+    COMBO(COMBO_NAV_03, COMBO_NAV_03_ACTION),
+    COMBO(COMBO_NAV_04, COMBO_NAV_04_ACTION),
+    COMBO(COMBO_NAV_05, COMBO_NAV_05_ACTION),
 };
 
