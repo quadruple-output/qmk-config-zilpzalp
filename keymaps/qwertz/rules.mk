@@ -1,0 +1,8 @@
+COMBO_ENABLE = yes
+EXTRAKEY_ENABLE = yes # required for media keys
+KEY_OVERRIDE_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+NKRO_ENABLE = yes
+# CAPS_WORD_ENABLE = yes
+# CONSOLE_ENABLE = yes
+# TAP_DANCE_ENABLE = yes
