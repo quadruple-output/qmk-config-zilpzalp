@@ -207,7 +207,7 @@ DEF_COMBO(SYM, 03, R7, R8);
           │   ⇞   │   ↑   │   ⇟   ├───────┐           ┌───────┤   7   │   8   │   9   │
           │       │       │       │       │           │       │       │       │       │
           ├───────┼───────┼───────┤       │           │   *   ├───────┼───────┼───────┤
-          │       │       │       │       │           │       │       │       │       │
+          │       │       │       │       │           │       │       │   ●┈┈ = ┈┈●   │
           │   ←   │   ↓   │   →   ├───────┤           ├───────┤   4   │   5   │   6   │
           │       │       │       │       │           │       │       │       │       │
   ┌───────┼───────┼───────┼───────┤   ↠   │           │   /   ├───────┼───────┼───────┼───────┐
@@ -261,8 +261,10 @@ DEF_COMBO(NAV, 03, R1, R2);
 #define COMBO_NAV_03_ACTION KC_KP_DOT
 DEF_COMBO(NAV, 04, R2, R3);
 #define COMBO_NAV_04_ACTION KC_KP_MINUS
-DEF_COMBO(NAV, 05, R7, R8);
-#define COMBO_NAV_05_ACTION KC_BACKSPACE
+DEF_COMBO(NAV, 05, R5, R6);
+#define COMBO_NAV_05_ACTION DE_EQL
+DEF_COMBO(NAV, 06, R7, R8);
+#define COMBO_NAV_06_ACTION KC_BACKSPACE
 
 /* Layer FCT:
           ┌───────┬───────┬───────┐                           ┌───────┬───────┬───────┐
@@ -410,5 +412,6 @@ combo_t key_combos[] = {
     COMBO(COMBO_NAV_03, COMBO_NAV_03_ACTION),
     COMBO(COMBO_NAV_04, COMBO_NAV_04_ACTION),
     COMBO(COMBO_NAV_05, COMBO_NAV_05_ACTION),
+    COMBO(COMBO_NAV_06, COMBO_NAV_06_ACTION),
 };
 
